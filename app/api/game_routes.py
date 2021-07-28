@@ -12,13 +12,14 @@ def get_game():
     """
     starts game
     """
-    currGame = Game(2)
+    currGame = Game()
 
     # currGames[currGame.game_code] = currGame
     currGames[currGame.game_code] = currGame
 
-    data = dict()
-    data['player'] = 1
-    data['player_deck'] = currGame.playerDecks['player1']
-    data['deck_vals'] = currGame.deck
-    return data
+    # data = dict()
+    # data['player'] = 1
+    # data['player_deck'] = currGame.playerDecks['player1']
+    # data['deck_vals'] = currGame.deck_vals
+    # return data
+    return currGame.game_code

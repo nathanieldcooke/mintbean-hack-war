@@ -1,27 +1,15 @@
 import random
 
 deckDict = {
-    'ace-clubs': {
-        'val': 13,
-        'img': 'ace-clubs.png'
-    },
-    'ace-diamonds': {
-        'val': 13,
-        'img': 'ace-clubs.png'
-    },
-    'ace-heart': {
-        'val': 13,
-        'img': 'ace-clubs.png'
-    },
-    'ace-spade': {
-        'val': 13,
-        'img': 'ace-clubs.png'
-    }
+    'ace-clubs': 13,
+    'ace-diamonds': 13,
+    'ace-heart': 13,
+    'ace-spade': 13,
 }
 
 class Deck:
-    def __init__(self, players):
-        self.players = players
+    def __init__(self):
+        self.players = 2
         self.deckDict = deckDict
         self.deckList = self.build_deck()
         self.playerDecks = self.divide_deck()
@@ -30,9 +18,6 @@ class Deck:
 
         deck = list(self.deckDict.keys())
         random.shuffle(deck)
-
-        if self.players == 3:
-            deck.pop(0)
 
         return deck
 
