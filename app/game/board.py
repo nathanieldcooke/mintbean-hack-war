@@ -1,5 +1,0 @@
-deck = {
-    'ace-clubs': {
-        'val'
-    }
-}

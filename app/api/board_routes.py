@@ -1,15 +1,15 @@
 import json
 from flask import Blueprint, jsonify, session, request
-from app.game import board
+from app.game import game
 
-board_routes = Blueprint('board', __name__)
+game_routes = Blueprint('game', __name__)
 
-@board_routes.route('/')
-def get_board():
+@game_routes.route('/')
+def get_game():
     """
-    Returns current board
+    starts game
     """
-    print(board)
-    row_obj = json.dumps()
-    return row_obj
-    # return 'Heloooooooooo'
+    print(game)
+
+    # return game
+    return 'Heloooooooooo'
