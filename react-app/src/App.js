@@ -36,7 +36,7 @@ function App() {
         <Route path="/sign-up" exact={true}>
           <SignUpForm />
         </Route>
-        <Route path="/new-game" exact={true}>
+        <Route path="/new-game/:code/:pNum" exact={true}>
           <GameBoard />
         </Route>
         <ProtectedRoute path="/users" exact={true} >

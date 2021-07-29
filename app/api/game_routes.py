@@ -17,9 +17,12 @@ def get_game():
     # currGames[currGame.game_code] = currGame
     currGames[currGame.game_code] = currGame
 
+    print(currGames)
+
     # data = dict()
     # data['player'] = 1
     # data['player_deck'] = currGame.playerDecks['player1']
     # data['deck_vals'] = currGame.deck_vals
     # return data
-    return currGame.game_code
+    print(currGame.game_code)
+    return {'code': currGame.game_code}
