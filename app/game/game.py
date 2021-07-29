@@ -6,8 +6,8 @@ from app.game.player import Player
 
 class Game:
 
-
     def __init__(self):
+        self.joined_game = 0
         self.deck = Deck()
         self.playerDecks = self.deck.playerDecks
         self.deck_vals = self.deck.deckDict
@@ -38,7 +38,7 @@ class Game:
         gameState['over'] = over
 
         if (over):
-            print('do over shit')
+            print('do over shit!!!')
 
         self.player1.curr_play = None
         self.player2.curr_play = None
