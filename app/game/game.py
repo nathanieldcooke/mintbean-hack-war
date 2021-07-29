@@ -1,7 +1,9 @@
 import random
 import string
-from app.game.deck import Deck
-from app.game.player import Player
+# from app.game.deck import Deck
+# from app.game.player import Player
+from deck import Deck
+from player import Player
 
 
 class Game:
@@ -71,9 +73,11 @@ class Game:
 
         return winLose
 
-# game = Game(2)
+game = Game()
 
-# print(game.players)
+game.player1.curr_play = ['6-spade', '8-diamonds', '8-spade']
+game.player2.curr_play = ['king-clubs', '8-clubs', 'jack-clubs']
+
+game.game_loop()
 # print(game.playerDecks)
 # print(game.game_code)
-

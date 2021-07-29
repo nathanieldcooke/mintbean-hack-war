@@ -8,20 +8,33 @@ import { io } from 'socket.io-client';
 let socket;
 
 const GameBoard = () => {
-
+    // game init code
     let { code, pNum } = useParams()
-
-    let [moves, setMoves] = useState({})
-
+    let [moves, setMoves] = useState([])
     let [gameState, setGameState] = useState({})
+
+    // cards being played
+    let [card1, setCard1] = useState('')
+    let [card2, setCard2] = useState('')
+    let [card3, setCard3] = useState('')  
+    
+    // game values 
+    let [score, setScore] = useState(1000)
+    let [deck, setDeck] = useState([])
 
     useEffect(() => {
         console.log(gameState)
+        if (gameState[`player${pNum}`]) {
+            let playerState = gameState[`player${pNum}`]
+            setScore(playerState.score)
+            setDeck(playerState.deck)
+        }
+
     }, [gameState])
 
-    const updateGame = () => {
-        console.log('UPDATE GAME')
-    }
+    // const updateGame = () => {
+    //     console.log('UPDATE GAME')
+    // }
 
     useEffect(() => {
         // create websocket
@@ -43,6 +56,7 @@ const GameBoard = () => {
 
     const sendMoves = () => {
         // e.preventDefault()
+        let moves = [card1, card2, card3]
         setMoves(moves)
 
         socket.emit("games", { pNum: pNum, 'game_id': code, moves})
@@ -52,7 +66,29 @@ const GameBoard = () => {
 
     return (
         <div>
-            <button>Submit</button>
+            <button
+                onClick={sendMoves}
+            >Submit</button>
+            <div>
+                <div>Score: {score}</div>
+                <div>Num Cards: {deck.length}</div>
+                <div>Cards To Play: {deck.slice(0, 3).join(' ')} </div>
+                <input
+                    placeholder={'card1'}
+                    value={card1}
+                    onChange={(e) => setCard1(e.target.value)}
+                />
+                <input
+                    placeholder={'card2'}
+                    value={card2}
+                    onChange={(e) => setCard2(e.target.value)}
+                />
+                <input
+                    placeholder={'card3'}
+                    value={card3}
+                    onChange={(e) => setCard3(e.target.value)}
+                />
+            </div>
         </div>
     );
 }

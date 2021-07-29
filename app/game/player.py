@@ -4,7 +4,8 @@ class Player:
         self.deck = deck
         self.curr_play = None
 
-    def updateScores(obj, scores, player1, player2):
+    @classmethod
+    def updateScores(cls, scores, player1, player2):
         for score in scores:
             if score == 1:
                 player1.score += 100
@@ -18,7 +19,8 @@ class Player:
         if scores.count(2) == 3:
             score += 200
 
-    def updateDecks(obj, winLose, player1, player2):
+    @classmethod
+    def updateDecks(cls, winLose, player1, player2):
         if winLose.count(1) > winLose.count(2):
             player1.addCardsToDeck(player2.curr_play)
             player2.removeCardsFromDeck(player2.curr_play)

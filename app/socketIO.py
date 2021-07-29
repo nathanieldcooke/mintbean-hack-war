@@ -31,6 +31,7 @@ def handle_games(data):
     #     game.joined_game += 1
     #     return
         # game[f"player{game.joined_game}"]
+
     
     if data['pNum'] == '1':
         print('IN 1 IF!!!!!!!!!!!!!!!!!!')
@@ -38,7 +39,7 @@ def handle_games(data):
         gameState = dict()
         gameState['player1'] = game.player1.to_dict()
         emit(game.game_code, gameState, broadcast=True)
-        return None
+        # return None
         # gameState['player1'] = game.player2.to_dict()
 
     if data['pNum'] == '2':
@@ -47,12 +48,13 @@ def handle_games(data):
         gameState = dict()
         gameState['player2'] = game.player2.to_dict()
         emit(game.game_code, gameState, broadcast=True)
-        return None
+        # return None
 
     if game.player1.curr_play and game.player2.curr_play:
         print('IN L IF!!!!!!!!!!!!!!!!!!')
         gameState = game.game_loop()
         emit(game.game_code, gameState, broadcast=True)
+        # return None
     return None
     
         
