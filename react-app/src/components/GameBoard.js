@@ -14,8 +14,10 @@ const GameBoard = () => {
     let { code, pNum } = useParams()
     let [moves, setMoves] = useState([])
     let [gameState, setGameState] = useState({})
+    let [clickedBtns, setClickedBtns] = useState([])
+    let [clickedBatBtn, setClickedBatBtn] = useState(false)
 
-    // cards being played
+    // cards being played Top and Bottom
     let [card1, setCard1] = useState('')
     let [card2, setCard2] = useState('')
     let [card3, setCard3] = useState('')  
@@ -24,6 +26,15 @@ const GameBoard = () => {
     let [eCard2, setECard2] = useState('')
     let [eCard3, setECard3] = useState('')
     
+    // cards in battle arena
+    let [aCard1, aSetCard1] = useState('')
+    let [aCard2, aSetCard2] = useState('')
+    let [aCard3, aSetCard3] = useState('')
+
+    let [aECard1, aESetECard1] = useState('')
+    let [aECard2, aESetECard2] = useState('')
+    let [aECard3, aESetECard3] = useState('')
+
     // game values 
     let [eScore, setEScore] = useState(1000)
     let [score, setScore] = useState(1000)
@@ -39,26 +50,34 @@ const GameBoard = () => {
             // show recent play
             // showLastPlay()
             // setGame for next play 
-            setNextGame()
+            setNextRound()
         }
 
     }, [gameState])
 
-    const setNextGame = () => {
+    const setNextRound = () => {
         let playerState = gameState[`player${pNum}`]
         setScore(playerState?.score)
         setDeck(playerState?.deck)
         let c1, c2, c3
         if (playerState?.deck) [c1, c2, c3] = playerState?.deck.slice(0, 3)
+        let ePlayer = gameState[`player${pNum == 1 ? 2 : 1}`]
+        setEScore(ePlayer ? ePlayer.score : eScore)
         console.log(c1, c2, c3)
         setCard1(c1)
         setCard2(c2)
         setCard3(c3)
+        setMoves([])
+        setClickedBatBtn(false)
+        clickedBtns.forEach(node => node.classList.remove('red'))
+        setClickedBtns([])
     }
 
     const startGame = () => {
         let playerState = gameState[`player${pNum}`]
         setScore(playerState.score)
+        let ePlayer = gameState[`player${pNum == 1 ? 2 : 1}`]
+        setEScore(ePlayer ? ePlayer.score : eScore)
         setDeck(playerState.deck)
         let [c1, c2, c3] = playerState.deck.slice(0, 3)
         console.log(c1, c2, c3)
@@ -66,10 +85,6 @@ const GameBoard = () => {
         setCard2(c2)
         setCard3(c3)
     }
-
-    // const updateGame = () => {
-    //     console.log('UPDATE GAME')
-    // }
 
     useEffect(() => {
         // create websocket
@@ -92,13 +107,17 @@ const GameBoard = () => {
     const sendMoves = () => {
         // e.preventDefault()
         let moves = [card1, card2, card3]
+        setClickedBatBtn(true)
         setMoves(moves)
 
         socket.emit("games", { pNum: pNum, 'game_id': code, moves})
     }
 
-    const setPosition = (mIdx, card) => {
-
+    const setPosition = (e, mIdx, card) => {
+        e.target.classList.add('red')
+        setClickedBtns(clickedBtns.concat([e.target]))
+        // console.log(e.target)
+        // e.classList.add('red')
         let dupMoves = moves.slice(0);
 
         dupMoves[mIdx] = card;
@@ -106,6 +125,21 @@ const GameBoard = () => {
         setMoves(dupMoves)
 
         // console.log(moves)
+    }
+
+    const isDisabled = (idx, card) => {
+        if (card === card1 && moves.includes(card)) {
+            // console.log('in', moves, idx, card)
+            return moves[idx] !== card
+        } else if (card === card2 && moves.includes(card)) {
+            // console.log('in', moves, idx, card)
+            return moves[idx] !== card
+        } else if (card === card3 && moves.includes(card)) {
+            // console.log('in', moves, idx, card)
+            return moves[idx] !== card
+        }
+        // console.log('out: ', moves, idx, card)
+        return moves[idx]
     }
 
     
@@ -153,27 +187,33 @@ const GameBoard = () => {
                 </div>
                 <div id='center-center'>
                     <div>
-                        <Card imgName={'play_b_1'}/>
-                        <Card imgName={'play_b_2'} />
-                        <Card imgName={'play_b_3'} />
+                        <Card imgName={aECard1 === '' ? 'play_b_1' : aECard1} />
+                        <Card imgName={aECard2 === '' ? 'play_b_2' : aECard2} />
+                        <Card imgName={aECard3 === '' ? 'play_b_3' : aECard3} />
                     </div>
                     <div>
-                        <Card imgName={'play_b_1'} />
-                        <Card imgName={'play_b_2'} />
-                        <Card imgName={'play_b_3'} />
+                        <Card imgName={aCard1 === '' ? 'play_b_1' : aCard1} />
+                        <Card imgName={aCard2 === '' ? 'play_b_2' : aCard2} />
+                        <Card imgName={aCard3 === '' ? 'play_b_3' : aCard3} />
                     </div>
                 </div>
                 <div id='center-bottom'>
                     <div className='card-spot'>
                         <div className='buttons'>
                             <button
-                                onClick={() => setPosition(0, card1)}
+                                className={isDisabled(0, card1) ? 'inactive': 'active'}
+                                disabled={isDisabled(0, card1)}
+                                onClick={(e) => setPosition(e, 0, card1)}
                             >1</button>
                             <button
-                                onClick={() => setPosition(1, card1)}
+                                className={isDisabled(1, card1) ? 'inactive' : 'active'}
+                                disabled={isDisabled(1, card1)}
+                                onClick={(e) => setPosition(e, 1, card1)}
                             >2</button>
                             <button
-                                onClick={() => setPosition(2, card1)}
+                                className={isDisabled(2, card1) ? 'inactive' : 'active'}
+                                disabled={isDisabled(2, card1)}
+                                onClick={(e) => setPosition(e, 2, card1)}
                             >3</button>
                         </div>
                         <Card imgName={card1 === '' ? 'card-back' : card1} />
@@ -181,13 +221,19 @@ const GameBoard = () => {
                     <div className='card-spot'>
                         <div className='buttons'>
                             <button
-                                onClick={() => setPosition(0, card2)}
+                                className={isDisabled(0, card2) ? 'inactive' : 'active'}
+                                disabled={isDisabled(0, card2)}
+                                onClick={(e) => setPosition(e, 0, card2)}
                             >1</button>
                             <button
-                                onClick={() => setPosition(1, card2)}
+                                className={isDisabled(1, card2) ? 'inactive' : 'active'}
+                                disabled={isDisabled(1, card2)}
+                                onClick={(e) => setPosition(e, 1, card2)}
                             >2</button>
                             <button
-                                onClick={() => setPosition(2, card2)}
+                                className={isDisabled(2, card2) ? 'inactive' : 'active'}
+                                disabled={isDisabled(2, card2)}
+                                onClick={(e) => setPosition(e, 2, card2)}
                             >3</button>
                         </div>
                         <Card imgName={card2 === '' ? 'card-back' : card2} />
@@ -195,13 +241,19 @@ const GameBoard = () => {
                     <div className='card-spot'>
                         <div className='buttons'>
                             <button
-                                onClick={() => setPosition(0, card3)}
+                                className={isDisabled(0, card3) ? 'inactive' : 'active'}
+                                disabled={isDisabled(0, card3)}
+                                onClick={(e) => setPosition(e, 0, card3)}
                             >1</button>
                             <button
-                                onClick={() => setPosition(1, card3)}
+                                className={isDisabled(1, card3) ? 'inactive' : 'active'}
+                                disabled={isDisabled(1, card3)}
+                                onClick={(e) => setPosition(e, 1, card3)}
                             >2</button>
                             <button
-                                onClick={() => setPosition(2, card3)}
+                                className={isDisabled(2, card3) ? 'inactive' : 'active'}
+                                disabled={isDisabled(2, card3)}
+                                onClick={(e) => setPosition(e, 2, card3)}
                             >3</button>
                         </div>
                         <Card imgName={card3 === '' ? 'card-back' : card3} />
@@ -218,6 +270,8 @@ const GameBoard = () => {
                         <span>Deck: <span>{deck?.length}</span>/52</span>
                     </div>
                     <button 
+                        id='battle-btn'
+                        className={moves[0] && moves[1] && moves[2] && !clickedBatBtn ? 'active' : 'inactive'}
                         onClick={sendMoves}
                         disabled={!moves[0] || !moves[1] || !moves[2]} 
                     >Battle</button>
