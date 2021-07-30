@@ -38,7 +38,7 @@ def handle_games(data):
         game.player1.curr_play = data['moves']
         gameState = dict()
         gameState['player1'] = game.player1.to_dict()
-        emit(game.game_code, gameState, broadcast=True)
+        emit(f'{game.game_code}-1', gameState, broadcast=True)
         # return None
         # gameState['player1'] = game.player2.to_dict()
 
@@ -47,13 +47,14 @@ def handle_games(data):
         game.player2.curr_play = data['moves']
         gameState = dict()
         gameState['player2'] = game.player2.to_dict()
-        emit(game.game_code, gameState, broadcast=True)
+        emit(f'{game.game_code}-2', gameState, broadcast=True)
         # return None
 
     if game.player1.curr_play and game.player2.curr_play:
         print('IN L IF!!!!!!!!!!!!!!!!!!')
         gameState = game.game_loop()
-        emit(game.game_code, gameState, broadcast=True)
+        emit(f'{game.game_code}-1', gameState, broadcast=True)
+        emit(f'{game.game_code}-2', gameState, broadcast=True)
         # return None
     return None
     
