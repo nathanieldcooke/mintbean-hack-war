@@ -49,14 +49,6 @@ const GameBoard = () => {
             gameStepper()
         } else if (gameState[`player${pNum}`]) {
             startGame()
-            // handle game move
-
-            // show recent play
-            // showLastPlay()
-
-            // setGame for next play 
-            // setNextRound()
-
         }
 
     }, [gameState])
@@ -66,9 +58,41 @@ const GameBoard = () => {
     }
 
     const gameStepper = async () => {
+        setMoves([])
+        clickedBtns.forEach(node => node.classList.remove('red'))
+        setClickedBtns([])
+
         // await sleep(2000)
         await moveCardsToBattle()
         await moveCardsToWinnerDeck()
+        await serveCards()
+    }
+
+    const serveCards = async () => {
+        await sleep(2000)
+        let playerState = gameState[`player${pNum}`]
+        let c1, c2, c3
+        if (playerState?.deck) [c1, c2, c3] = playerState?.deck.slice(0, 3)
+        // let ePlayer = gameState[`player${pNum == 1 ? 2 : 1}`]
+        // setEScore(ePlayer ? ePlayer.score : eScore)
+        // console.log(c1, c2, c3)
+
+        setCard1(c1)
+        setECard3('joker')
+
+
+        await sleep(500)
+
+        setCard2(c2)
+        setECard2('joker')
+
+
+        await sleep(500)
+
+
+        setCard3(c1)
+        setECard1('joker')
+
     }
 
     const moveCardsToWinnerDeck = async () => {
@@ -148,7 +172,7 @@ const GameBoard = () => {
         let playerHand = gameState[`player${pNum}`].curr_play
         let ePlayerHand = gameState[`player${pNum == 1 ? 2 : 1}`].curr_play
 
-        console.log(playerHand, ePlayerHand)
+        // console.log(playerHand, ePlayerHand)
 
         await sleep(2000)
 
