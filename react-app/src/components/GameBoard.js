@@ -4,6 +4,8 @@ import { io } from 'socket.io-client';
 import Card from './Card.js'
 import './GameBoard.css'
 
+import SideBoard from './SideBoard.js'
+
 // outside of your component, initialize the socket variable
 let socket;
 
@@ -266,17 +268,8 @@ const GameBoard = () => {
 
     return (
         <div id='board'>
-            <div id='left-board'>
-                <div className='score'>
-                    <div>
-                        <span>Score: <span>{eScore}</span></span>
-                    </div>
-                    <div>
-                        <span>Deck: <span>{52 - deck?.length}</span>/52</span>
-                    </div>
-                </div>
-                <Card imgName={myStack} />
-            </div>
+
+            <SideBoard boardId='left-board' score={eScore} deck={deck} stack={myStack} />
 
             <div id='center-board'>
                 <div id='center-top'>
@@ -380,24 +373,9 @@ const GameBoard = () => {
                     </div>
                 </div>
             </div>
+            
+            <SideBoard boardId='right-board' score={score} deck={deck} stack={eStack} clickedBatBtn={clickedBatBtn} moves={moves} sendMoves={sendMoves} battleBtn={true} />
 
-            <div id='right-board'>
-                <div className='score'>
-                    <div>
-                        <span>Score: <span>{score}</span></span>
-                    </div>
-                    <div>
-                        <span>Deck: <span>{deck?.length}</span>/52</span>
-                    </div>
-                    <button 
-                        id='battle-btn'
-                        className={moves[0] && moves[1] && moves[2] && !clickedBatBtn ? 'active' : 'inactive'}
-                        onClick={sendMoves}
-                        disabled={!(moves[0] && moves[1] && moves[2])} 
-                    >Battle</button>
-                </div>
-                <Card imgName={eStack}/>
-            </div>
         </div>
     );
 }

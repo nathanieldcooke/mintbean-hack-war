@@ -40,7 +40,7 @@ class Game:
         gameState['over'] = over
 
         if (over):
-            print('do over shit!!!')
+            print('do over stuff!!!')
 
         self.player1.curr_play = None
         self.player2.curr_play = None
@@ -48,13 +48,13 @@ class Game:
         return gameState
 
     def game_over(self):
-        if len(self.player1.deck) == 0:
+        if len(self.player1.deck) < 3:
             return 'p1 deck lose'
-        if self.player1.score == 0:
+        if self.player1.score <= 0:
             return 'p1 score lose'
-        if len(self.player2.deck) == 0:
+        if len(self.player2.deck) < 3:
             return 'p2 deck lose'
-        if self.player2.score == 0:
+        if self.player2.score <= 0:
             return 'p2 score lose'
         return False
 
