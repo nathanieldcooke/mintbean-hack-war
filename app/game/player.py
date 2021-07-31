@@ -6,18 +6,29 @@ class Player:
 
     @classmethod
     def updateScores(cls, scores, player1, player2):
-        for score in scores:
-            if score == 1:
-                player1.score += 100
-                player2.score -= 100
-            if score == 2:
-                player2.score += 100
-                player1.score -= 100
+        # for score in scores:
+        #     if score == 1:
+        #         player1.score += 100
+        #         player2.score -= 100
+        #     if score == 2:
+        #         player2.score += 100
+        #         player1.score -= 100
+
+        if scores.count(1) > scores.count(2):
+            player1.score += 100
+            player2.score -= 100
+        elif scores.count(2) > scores.count(1):
+            player2.score += 100
+            player1.score -= 100
+
             
         if scores.count(1) == 3:
-            score += 200
+            player1.score += 200
+            player2.score -= 200
         if scores.count(2) == 3:
-            score += 200
+            player2.score += 200
+            player1.score -= 200
+
 
     @classmethod
     def updateDecks(cls, winLose, player1, player2):

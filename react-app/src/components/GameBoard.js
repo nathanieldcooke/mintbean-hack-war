@@ -91,9 +91,10 @@ const GameBoard = () => {
         setDeck(playerState.deck)
         setClickedBatBtn(false)
 
-        // let ePlayer = gameState[`player${pNum == 1 ? 2 : 1}`]
-        // setEScore(ePlayer ? ePlayer.score : eScore)
-        // console.log(c1, c2, c3)
+        let ePlayer = gameState[`player${pNum == 1 ? 2 : 1}`]
+        setScore(playerState.score)
+        setEScore(ePlayer ? ePlayer.score : eScore)
+        console.log(c1, c2, c3)
 
         setCard1(c1)
         setECard3('joker')
