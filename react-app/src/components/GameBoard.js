@@ -3,8 +3,6 @@ import { useParams } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import Card from './Card.js'
 import './GameBoard.css'
-// import { NavLink } from 'react-router-dom';
-// import LogoutButton from './auth/LogoutButton';
 
 // outside of your component, initialize the socket variable
 let socket;
@@ -45,13 +43,31 @@ const GameBoard = () => {
 
     useEffect(() => {
         console.log(gameState)
-        if (gameState[`player${pNum}`] && gameState[`player${pNum == 1 ? 2 : 1}`]) {
+        if (gameState[`player${pNum}`] && gameState[`player${pNum === '1' ? 2 : 1}`]) {
             gameStepper()
         } else if (gameState[`player${pNum}`]) {
             serveCards()
         }
 
     }, [gameState])
+
+    useEffect(() => {
+        // create websocket
+        socket = io();
+        // listen for chat events
+        socket.on(`${code}-${pNum}`, (gameState) => {
+            // when we recieve a chat, add it into our messages array in state
+            setGameState(gameState)
+            // console.log(gameState)
+        })
+        // console.log(moves)
+        socket.emit("games", { pNum: pNum, 'game_id': code, moves })
+        // when component unmounts, disconnect
+        return (() => {
+            socket.disconnect()
+        })
+    }, [code])
+
 
     const sleep = (ms) => {
         return new Promise(resolve => setTimeout(resolve, ms));
@@ -62,7 +78,6 @@ const GameBoard = () => {
         clickedBtns.forEach(node => node.classList.remove('red'))
         setClickedBtns([])
 
-        // await sleep(2000)
         await moveCardsToBattle()
         await moveCardsToWinnerDeck()
         await serveCards()
@@ -100,17 +115,17 @@ const GameBoard = () => {
 
     const moveCardsToWinnerDeck = async () => {
         let playerHand = gameState[`player${pNum}`].curr_play
-        let ePlayerHand = gameState[`player${pNum == 1 ? 2 : 1}`].curr_play
+        let ePlayerHand = gameState[`player${pNum === 1 ? 2 : 1}`].curr_play
 
         let winLose = gameState['winLose']
-        let countOf1 = winLose.filter(num => 1 === num).length
-        let countOf2 = winLose.filter(num => 2 === num).length
+        let countOf1 = winLose?.filter(num => 1 === num).length
+        let countOf2 = winLose?.filter(num => 2 === num).length
 
         let winStack = null 
 
         if (countOf1 > countOf2) { // player1 wins battle
             console.log('hello', pNum, countOf1)
-            if (pNum == 1)  {
+            if (pNum === '1')  {
                 console.log('hello1111')
                 winStack = setMyStack
             } else {
@@ -120,7 +135,7 @@ const GameBoard = () => {
             // winStack = setMyStack
         } else { // player2 wins battle
             console.log('heeeee', pNum, countOf2)
-            if (pNum == 2) {
+            if (pNum === '2') {
                 console.log('heeOOO')
                 winStack = setMyStack
             } else {
@@ -173,7 +188,7 @@ const GameBoard = () => {
 
     const moveCardsToBattle = async () => {
         let playerHand = gameState[`player${pNum}`].curr_play
-        let ePlayerHand = gameState[`player${pNum == 1 ? 2 : 1}`].curr_play
+        let ePlayerHand = gameState[`player${pNum === '1' ? 2 : 1}`].curr_play
 
         // console.log(playerHand, ePlayerHand)
 
@@ -205,54 +220,6 @@ const GameBoard = () => {
 
     }
 
-    // const setNextRound = () => {
-    //     let playerState = gameState[`player${pNum}`]
-    //     setScore(playerState?.score)
-    //     setDeck(playerState?.deck)
-    //     let c1, c2, c3
-    //     if (playerState?.deck) [c1, c2, c3] = playerState?.deck.slice(0, 3)
-    //     let ePlayer = gameState[`player${pNum == 1 ? 2 : 1}`]
-    //     setEScore(ePlayer ? ePlayer.score : eScore)
-    //     console.log(c1, c2, c3)
-    //     setCard1(c1)
-    //     setCard2(c2)
-    //     setCard3(c3)
-    //     setMoves([])
-    //     setClickedBatBtn(false)
-    //     clickedBtns.forEach(node => node.classList.remove('red'))
-    //     setClickedBtns([])
-    // }
-
-    // const startGame = () => {
-        // let playerState = gameState[`player${pNum}`]
-        // setScore(playerState.score)
-        // let ePlayer = gameState[`player${pNum == 1 ? 2 : 1}`]
-        // setEScore(ePlayer ? ePlayer.score : eScore)
-        // setDeck(playerState.deck)
-        // serveCards()
-        // let [c1, c2, c3] = playerState.deck.slice(0, 3)
-        // console.log(c1, c2, c3)
-        // setCard1(c1)
-        // setCard2(c2)
-        // setCard3(c3)
-    // }
-
-    useEffect(() => {
-        // create websocket
-        socket = io();
-        // listen for chat events
-        socket.on(`${code}-${pNum}`, (gameState) => {
-            // when we recieve a chat, add it into our messages array in state
-            setGameState(gameState)
-            // console.log(gameState)
-        })
-        // console.log(moves)
-        socket.emit("games", { pNum: pNum, 'game_id': code, moves })
-        // when component unmounts, disconnect
-        return (() => {
-            socket.disconnect()
-        })
-    }, [code])
 
 
     const sendMoves = () => {
