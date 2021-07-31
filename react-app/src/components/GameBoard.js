@@ -5,6 +5,7 @@ import Card from './Card.js'
 import './GameBoard.css'
 
 import SideBoard from './SideBoard.js'
+import PlayerCardArea from './PlayerCardArea.js'
 
 // outside of your component, initialize the socket variable
 let socket;
@@ -268,36 +269,20 @@ const GameBoard = () => {
 
     return (
         <div id='board'>
-
-            <SideBoard boardId='left-board' score={eScore} deck={deck} stack={myStack} />
-
+            <SideBoard 
+                boardId='left-board' 
+                score={eScore} 
+                deck={deck} 
+                stack={myStack} 
+            />
             <div id='center-board'>
-                <div id='center-top'>
-                    <div className='card-spot'>
-                        <Card imgName={eCard1 === '' ? 'play_b' : eCard1} />
-                        <div className='eButtons'>
-                            <button>1</button>
-                            <button>2</button>
-                            <button>3</button>
-                        </div>
-                    </div>
-                    <div className='card-spot'>
-                        <Card imgName={eCard2 === '' ? 'play_b' : eCard2} />
-                        <div className='eButtons'>
-                            <button>1</button>
-                            <button>2</button>
-                            <button>3</button>
-                        </div>
-                    </div>
-                    <div className='card-spot'>
-                        <Card imgName={eCard3 === '' ? 'play_b' : eCard3} />
-                        <div className='eButtons'>
-                            <button>1</button>
-                            <button>2</button>
-                            <button>3</button>
-                        </div>
-                    </div>
-                </div>
+                <PlayerCardArea 
+                    centerTB='center-top' 
+                    eCard1={eCard1} eCard2={eCard2} eCard3={eCard3} 
+                    card1={card1} card2={card2} card3={card3} 
+                    isDisabled={isDisabled} 
+                    setPosition={setPosition} 
+                />
                 <div id='center-center'>
                     <div>
                         <Card imgName={aECard1 === '' ? 'play_b_1' : aECard1} />
@@ -310,72 +295,23 @@ const GameBoard = () => {
                         <Card imgName={aCard3 === '' ? 'play_b_3' : aCard3} />
                     </div>
                 </div>
-                <div id='center-bottom'>
-                    <div className='card-spot'>
-                        <div className='buttons'>
-                            <button
-                                className={isDisabled(0, card1) ? 'inactive': 'active'}
-                                disabled={isDisabled(0, card1)}
-                                onClick={(e) => setPosition(e, 0, card1)}
-                            >1</button>
-                            <button
-                                className={isDisabled(1, card1) ? 'inactive' : 'active'}
-                                disabled={isDisabled(1, card1)}
-                                onClick={(e) => setPosition(e, 1, card1)}
-                            >2</button>
-                            <button
-                                className={isDisabled(2, card1) ? 'inactive' : 'active'}
-                                disabled={isDisabled(2, card1)}
-                                onClick={(e) => setPosition(e, 2, card1)}
-                            >3</button>
-                        </div>
-                        <Card imgName={card1 === '' ? 'play_b' : card1} />
-                    </div>
-                    <div className='card-spot'>
-                        <div className='buttons'>
-                            <button
-                                className={isDisabled(0, card2) ? 'inactive' : 'active'}
-                                disabled={isDisabled(0, card2)}
-                                onClick={(e) => setPosition(e, 0, card2)}
-                            >1</button>
-                            <button
-                                className={isDisabled(1, card2) ? 'inactive' : 'active'}
-                                disabled={isDisabled(1, card2)}
-                                onClick={(e) => setPosition(e, 1, card2)}
-                            >2</button>
-                            <button
-                                className={isDisabled(2, card2) ? 'inactive' : 'active'}
-                                disabled={isDisabled(2, card2)}
-                                onClick={(e) => setPosition(e, 2, card2)}
-                            >3</button>
-                        </div>
-                        <Card imgName={card2 === '' ? 'play_b' : card2} />
-                    </div>
-                    <div className='card-spot'>
-                        <div className='buttons'>
-                            <button
-                                className={isDisabled(0, card3) ? 'inactive' : 'active'}
-                                disabled={isDisabled(0, card3)}
-                                onClick={(e) => setPosition(e, 0, card3)}
-                            >1</button>
-                            <button
-                                className={isDisabled(1, card3) ? 'inactive' : 'active'}
-                                disabled={isDisabled(1, card3)}
-                                onClick={(e) => setPosition(e, 1, card3)}
-                            >2</button>
-                            <button
-                                className={isDisabled(2, card3) ? 'inactive' : 'active'}
-                                disabled={isDisabled(2, card3)}
-                                onClick={(e) => setPosition(e, 2, card3)}
-                            >3</button>
-                        </div>
-                        <Card imgName={card3 === '' ? 'play_b' : card3} />
-                    </div>
-                </div>
+                <PlayerCardArea centerTB='center-bottom' 
+                    eCard1={eCard1} eCard2={eCard2} eCard3={eCard3} 
+                    card1={card1} card2={card2} card3={card3} 
+                    isDisabled={isDisabled} 
+                    setPosition={setPosition} 
+                />
             </div>
-            
-            <SideBoard boardId='right-board' score={score} deck={deck} stack={eStack} clickedBatBtn={clickedBatBtn} moves={moves} sendMoves={sendMoves} battleBtn={true} />
-
+            <SideBoard 
+                boardId='right-board' 
+                score={score} 
+                deck={deck} 
+                stack={eStack} 
+                clickedBatBtn={clickedBatBtn} 
+                moves={moves} 
+                sendMoves={sendMoves} 
+                battleBtn={true} 
+            />
         </div>
     );
 }
