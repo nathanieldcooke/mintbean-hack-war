@@ -48,7 +48,7 @@ const GameBoard = () => {
         if (gameState[`player${pNum}`] && gameState[`player${pNum == 1 ? 2 : 1}`]) {
             gameStepper()
         } else if (gameState[`player${pNum}`]) {
-            startGame()
+            serveCards()
         }
 
     }, [gameState])
@@ -73,6 +73,9 @@ const GameBoard = () => {
         let playerState = gameState[`player${pNum}`]
         let c1, c2, c3
         if (playerState?.deck) [c1, c2, c3] = playerState?.deck.slice(0, 3)
+        setDeck(playerState.deck)
+        setClickedBatBtn(false)
+
         // let ePlayer = gameState[`player${pNum == 1 ? 2 : 1}`]
         // setEScore(ePlayer ? ePlayer.score : eScore)
         // console.log(c1, c2, c3)
@@ -90,7 +93,7 @@ const GameBoard = () => {
         await sleep(500)
 
 
-        setCard3(c1)
+        setCard3(c3)
         setECard1('joker')
 
     }
@@ -106,8 +109,8 @@ const GameBoard = () => {
         let winStack = null 
 
         if (countOf1 > countOf2) { // player1 wins battle
-            console.log('hello')
-            if (pNum == countOf1)  {
+            console.log('hello', pNum, countOf1)
+            if (pNum == 1)  {
                 console.log('hello1111')
                 winStack = setMyStack
             } else {
@@ -117,7 +120,7 @@ const GameBoard = () => {
             // winStack = setMyStack
         } else { // player2 wins battle
             console.log('heeeee', pNum, countOf2)
-            if (pNum == countOf2) {
+            if (pNum == 2) {
                 console.log('heeOOO')
                 winStack = setMyStack
             } else {
@@ -202,36 +205,37 @@ const GameBoard = () => {
 
     }
 
-    const setNextRound = () => {
-        let playerState = gameState[`player${pNum}`]
-        setScore(playerState?.score)
-        setDeck(playerState?.deck)
-        let c1, c2, c3
-        if (playerState?.deck) [c1, c2, c3] = playerState?.deck.slice(0, 3)
-        let ePlayer = gameState[`player${pNum == 1 ? 2 : 1}`]
-        setEScore(ePlayer ? ePlayer.score : eScore)
-        console.log(c1, c2, c3)
-        setCard1(c1)
-        setCard2(c2)
-        setCard3(c3)
-        setMoves([])
-        setClickedBatBtn(false)
-        clickedBtns.forEach(node => node.classList.remove('red'))
-        setClickedBtns([])
-    }
+    // const setNextRound = () => {
+    //     let playerState = gameState[`player${pNum}`]
+    //     setScore(playerState?.score)
+    //     setDeck(playerState?.deck)
+    //     let c1, c2, c3
+    //     if (playerState?.deck) [c1, c2, c3] = playerState?.deck.slice(0, 3)
+    //     let ePlayer = gameState[`player${pNum == 1 ? 2 : 1}`]
+    //     setEScore(ePlayer ? ePlayer.score : eScore)
+    //     console.log(c1, c2, c3)
+    //     setCard1(c1)
+    //     setCard2(c2)
+    //     setCard3(c3)
+    //     setMoves([])
+    //     setClickedBatBtn(false)
+    //     clickedBtns.forEach(node => node.classList.remove('red'))
+    //     setClickedBtns([])
+    // }
 
-    const startGame = () => {
-        let playerState = gameState[`player${pNum}`]
-        setScore(playerState.score)
-        let ePlayer = gameState[`player${pNum == 1 ? 2 : 1}`]
-        setEScore(ePlayer ? ePlayer.score : eScore)
-        setDeck(playerState.deck)
-        let [c1, c2, c3] = playerState.deck.slice(0, 3)
-        console.log(c1, c2, c3)
-        setCard1(c1)
-        setCard2(c2)
-        setCard3(c3)
-    }
+    // const startGame = () => {
+        // let playerState = gameState[`player${pNum}`]
+        // setScore(playerState.score)
+        // let ePlayer = gameState[`player${pNum == 1 ? 2 : 1}`]
+        // setEScore(ePlayer ? ePlayer.score : eScore)
+        // setDeck(playerState.deck)
+        // serveCards()
+        // let [c1, c2, c3] = playerState.deck.slice(0, 3)
+        // console.log(c1, c2, c3)
+        // setCard1(c1)
+        // setCard2(c2)
+        // setCard3(c3)
+    // }
 
     useEffect(() => {
         // create websocket
@@ -308,7 +312,7 @@ const GameBoard = () => {
             <div id='center-board'>
                 <div id='center-top'>
                     <div className='card-spot'>
-                        <Card imgName={eCard1 === '' ? 'joker' : eCard1} />
+                        <Card imgName={eCard1 === '' ? 'play_b' : eCard1} />
                         <div className='eButtons'>
                             <button>1</button>
                             <button>2</button>
@@ -316,7 +320,7 @@ const GameBoard = () => {
                         </div>
                     </div>
                     <div className='card-spot'>
-                        <Card imgName={eCard2 === '' ? 'joker' : eCard2} />
+                        <Card imgName={eCard2 === '' ? 'play_b' : eCard2} />
                         <div className='eButtons'>
                             <button>1</button>
                             <button>2</button>
@@ -324,7 +328,7 @@ const GameBoard = () => {
                         </div>
                     </div>
                     <div className='card-spot'>
-                        <Card imgName={eCard3 === '' ? 'joker' : eCard3} />
+                        <Card imgName={eCard3 === '' ? 'play_b' : eCard3} />
                         <div className='eButtons'>
                             <button>1</button>
                             <button>2</button>
@@ -363,7 +367,7 @@ const GameBoard = () => {
                                 onClick={(e) => setPosition(e, 2, card1)}
                             >3</button>
                         </div>
-                        <Card imgName={card1 === '' ? 'card-back' : card1} />
+                        <Card imgName={card1 === '' ? 'play_b' : card1} />
                     </div>
                     <div className='card-spot'>
                         <div className='buttons'>
@@ -383,7 +387,7 @@ const GameBoard = () => {
                                 onClick={(e) => setPosition(e, 2, card2)}
                             >3</button>
                         </div>
-                        <Card imgName={card2 === '' ? 'card-back' : card2} />
+                        <Card imgName={card2 === '' ? 'play_b' : card2} />
                     </div>
                     <div className='card-spot'>
                         <div className='buttons'>
@@ -403,7 +407,7 @@ const GameBoard = () => {
                                 onClick={(e) => setPosition(e, 2, card3)}
                             >3</button>
                         </div>
-                        <Card imgName={card3 === '' ? 'card-back' : card3} />
+                        <Card imgName={card3 === '' ? 'play_b' : card3} />
                     </div>
                 </div>
             </div>
@@ -420,7 +424,7 @@ const GameBoard = () => {
                         id='battle-btn'
                         className={moves[0] && moves[1] && moves[2] && !clickedBatBtn ? 'active' : 'inactive'}
                         onClick={sendMoves}
-                        disabled={!moves[0] || !moves[1] || !moves[2]} 
+                        disabled={!(moves[0] && moves[1] && moves[2])} 
                     >Battle</button>
                 </div>
                 <Card imgName={eStack}/>
