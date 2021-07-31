@@ -81,6 +81,7 @@ const GameBoard = () => {
         await moveCardsToBattle()
         await moveCardsToWinnerDeck()
         await serveCards()
+        setClickedBatBtn(false)
     }
 
     const serveCards = async () => {
@@ -89,7 +90,7 @@ const GameBoard = () => {
         let c1, c2, c3
         if (playerState?.deck) [c1, c2, c3] = playerState?.deck.slice(0, 3)
         setDeck(playerState.deck)
-        setClickedBatBtn(false)
+        // setClickedBatBtn(true)
 
         let ePlayer = gameState[`player${pNum == 1 ? 2 : 1}`]
         setScore(playerState.score)
@@ -243,7 +244,7 @@ const GameBoard = () => {
 
         setMoves(dupMoves)
 
-        // console.log(moves)
+        console.log(moves)
     }
 
     const isDisabled = (idx, card) => {

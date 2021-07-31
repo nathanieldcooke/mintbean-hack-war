@@ -6,14 +6,6 @@ class Player:
 
     @classmethod
     def updateScores(cls, scores, player1, player2):
-        # for score in scores:
-        #     if score == 1:
-        #         player1.score += 100
-        #         player2.score -= 100
-        #     if score == 2:
-        #         player2.score += 100
-        #         player1.score -= 100
-
         if scores.count(1) > scores.count(2):
             player1.score += 100
             player2.score -= 100
