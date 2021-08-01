@@ -70,6 +70,11 @@ const NavBarModal = () => {
     setPlayerNum(2)
     setActiveGame(true)
     setCloseBtn(true)
+
+    setLoginBtn(false)
+    setSignUpBtn(false)
+    setnewGameBtn(false)
+    setJoinGameBtn(false)
   }
 
   const loginFunc = () => {
@@ -161,7 +166,7 @@ const NavBarModal = () => {
           {inviteCode &&
           <li>
               <div>Invite Code</div>
-              <di>{code}</di>
+              <div>{code}</div>
           </li>
           }
           { closeBtn && <li>

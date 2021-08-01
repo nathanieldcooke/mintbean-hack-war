@@ -17,7 +17,7 @@ const GameBoard = ({code, pNum, activeGame}) => {
     let [gameState, setGameState] = useState({})
     let [clickedBtns, setClickedBtns] = useState([])
     let [clickedBatBtn, setClickedBatBtn] = useState(false)
-    console.log(code, pNum, activeGame)
+    // console.log(code, pNum, activeGame)
 
     // cards being played Top and Bottom
     let [card1, setCard1] = useState('')
@@ -49,7 +49,7 @@ const GameBoard = ({code, pNum, activeGame}) => {
         console.log(gameState)
         if (gameState[`player${pNum}`] && gameState[`player${pNum === '1' ? 2 : 1}`]) {
             gameStepper() // runs animated card sequence, base on latest play by players
-        } else if (gameState[`player${pNum}`]) {
+        } else if (gameState[`player${pNum}`] && !moves.length) {
             serveCards() // runs animated card sequece to start game
         }
 
@@ -85,24 +85,27 @@ const GameBoard = ({code, pNum, activeGame}) => {
         clickedBtns.forEach(node => node.classList.remove('red'))
         setClickedBtns([])
 
-        await moveCardsToBattle()
-        await moveCardsToWinnerDeck()
+        await moveCardsToBattle() // this
+        await moveCardsToWinnerDeck() // this
         await serveCards()
         setClickedBatBtn(false)
     }
 
     const serveCards = async () => {
+        // console.log('SSSSSSSSSSSSSSS')
         await sleep(2000)
+
         let playerState = gameState[`player${pNum}`]
         let c1, c2, c3
         if (playerState?.deck) [c1, c2, c3] = playerState?.deck.slice(0, 3)
         setDeck(playerState.deck)
 
-        let ePlayer = gameState[`player${pNum == 1 ? 2 : 1}`]
+        let ePlayer = gameState[`player${pNum === '1' ? 2 : 1}`]
         setScore(playerState.score)
         setEScore(ePlayer ? ePlayer.score : eScore)
         console.log(c1, c2, c3)
 
+        await sleep(500)
         setCard1(c1)
         setECard3('joker')
 
@@ -119,8 +122,10 @@ const GameBoard = ({code, pNum, activeGame}) => {
     }
 
     const moveCardsToWinnerDeck = async () => {
+        await sleep(2000)
+        // console.log('WWWWWWWWWWWWWWWWWWWWW')
         let playerHand = gameState[`player${pNum}`].curr_play
-        let ePlayerHand = gameState[`player${pNum === 1 ? 2 : 1}`].curr_play
+        let ePlayerHand = gameState[`player${pNum === '1' ? 2 : 1}`].curr_play
 
         let winLose = gameState['winLose']
         let countOf1 = winLose?.filter(num => 1 === num).length
@@ -149,7 +154,7 @@ const GameBoard = ({code, pNum, activeGame}) => {
         }
 
 
-        await sleep(2000)
+        await sleep(500)
         winStack(playerHand[0])
         aSetCard1('play_b_1')
 
@@ -182,10 +187,15 @@ const GameBoard = ({code, pNum, activeGame}) => {
     }
 
     const moveCardsToBattle = async () => {
+        console.log('BBBBBBBBBBBBBBBBBBBBB')
+
         let playerHand = gameState[`player${pNum}`].curr_play
         let ePlayerHand = gameState[`player${pNum === '1' ? 2 : 1}`].curr_play
 
-        await sleep(2000)
+        console.log(playerHand)
+        console.log(ePlayerHand)
+
+        await sleep(500)
 
         setCard1('play_b')
         setECard1('play_b')
@@ -209,7 +219,10 @@ const GameBoard = ({code, pNum, activeGame}) => {
         aSetCard3(playerHand[2])
         aESetECard3(ePlayerHand[2])
 
-        await sleep(500)
+        // await sleep(5000)
+
+        // console.log('DONE:   BBBBBBBBBBBBBBBBBBBBB')
+
 
     }
 
