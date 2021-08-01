@@ -1,3 +1,21 @@
+/* @keyframes fade {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+
+    1% {
+        display: block;
+        opacity: 0;
+    }
+
+    100% {
+        display: block;
+        opacity: 1;
+    }
+} */
+
+
 #board {
     height: 100vh;
     width: 100vw;
@@ -75,11 +93,15 @@
     border-top: .75em solid rgb(1, 58, 1) 
 }
 
-.deck {
+.card {
     width: 5em;
     height: 7em;
     display: flex;
     justify-content: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+    /* background-color: blue; */
     /* background-color: black; */
 }
 
@@ -135,3 +157,8 @@
 button.red {
     background-color: rgb(181, 0, 0);
 }
+
+/* .fade {
+    border: 20px solid black;
+    animation: fade 10s ease-out;
+} */

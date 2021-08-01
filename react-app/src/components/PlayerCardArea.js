@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import Card from './Card';
+import FadeIn from './FadeIn';
 
-const PlayerCardArea = ({ centerTB, eCard1, eCard2, eCard3, card1, card2, card3, isDisabled, setPosition }) => {
+const PlayerCardArea = ({ centerTB, eCard1, eCard2, eCard3, card1, card1Fade, card2, card3, isDisabled, setPosition }) => {
     return (
         <>
             {centerTB === 'center-top'
             ?
                 <div id='center-top'>
                     <div className='card-spot'>
-                        <Card imgName={eCard1 === '' ? 'play_b' : eCard1} />
+                        <Card backImg={'play_b'} imgName={eCard1 === '' ? 'play_b' : eCard1} />
                         <div className='eButtons'>
                             <button>1</button>
                             <button>2</button>
@@ -16,7 +17,7 @@ const PlayerCardArea = ({ centerTB, eCard1, eCard2, eCard3, card1, card2, card3,
                         </div>
                     </div>
                     <div className='card-spot'>
-                        <Card imgName={eCard2 === '' ? 'play_b' : eCard2} />
+                        <Card backImg={'play_b'} imgName={eCard2 === '' ? 'play_b' : eCard2} />
                         <div className='eButtons'>
                             <button>1</button>
                             <button>2</button>
@@ -24,7 +25,7 @@ const PlayerCardArea = ({ centerTB, eCard1, eCard2, eCard3, card1, card2, card3,
                         </div>
                     </div>
                     <div className='card-spot'>
-                        <Card imgName={eCard3 === '' ? 'play_b' : eCard3} />
+                        <Card backImg={'play_b'} imgName={eCard3 === '' ? 'play_b' : eCard3} />
                         <div className='eButtons'>
                             <button>1</button>
                             <button>2</button>
@@ -52,7 +53,9 @@ const PlayerCardArea = ({ centerTB, eCard1, eCard2, eCard3, card1, card2, card3,
                                 onClick={(e) => setPosition(e, 2, card1)}
                             >3</button>
                         </div>
-                        <Card imgName={card1 === '' ? 'play_b' : card1} />
+                        {/* <FadeIn> */}
+                            <Card key={`${card1}`} backImg={'play_b'} fade={card1Fade} imgName={card1 === '' ? 'play_b' : card1}/>
+                        {/* </FadeIn> */}
                     </div>
                     <div className='card-spot'>
                         <div className='buttons'>
@@ -72,7 +75,7 @@ const PlayerCardArea = ({ centerTB, eCard1, eCard2, eCard3, card1, card2, card3,
                                 onClick={(e) => setPosition(e, 2, card2)}
                             >3</button>
                         </div>
-                        <Card imgName={card2 === '' ? 'play_b' : card2} />
+                        <Card backImg={'play_b'} imgName={card2 === '' ? 'play_b' : card2} />
                     </div>
                     <div className='card-spot'>
                         <div className='buttons'>
@@ -92,7 +95,7 @@ const PlayerCardArea = ({ centerTB, eCard1, eCard2, eCard3, card1, card2, card3,
                                 onClick={(e) => setPosition(e, 2, card3)}
                             >3</button>
                         </div>
-                        <Card imgName={card3 === '' ? 'play_b' : card3} />
+                        <Card backImg={'play_b'} imgName={card3 === '' ? 'play_b' : card3} />
                     </div>
                 </div>
             }

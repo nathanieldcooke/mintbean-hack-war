@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
+import { FadeContext } from './FadeContext.js';
 import { io } from 'socket.io-client';
 import Card from './Card.js'
 import './GameBoard.css'
@@ -7,10 +8,27 @@ import './GameBoard.css'
 import SideBoard from './SideBoard.js'
 import PlayerCardArea from './PlayerCardArea.js'
 
+// export const fadeObj = {
+//     boolean: true
+// }
+
 // outside of your component, initialize the socket variable
 let socket;
 
 const GameBoard = ({code, pNum, activeGame}) => {
+
+    const fadeContext = useContext(FadeContext)
+    // console.log("CONTEXT: ", `${fadeContext.fade.boolean}`)
+    // let obj = fadeContext.fade
+    // console.log(obj.boolean = true)
+    // console.log("CONTEXT: ", fadeContext.fade)
+
+    // console.log(fadeObj)
+    // fadeObj.boolean = false;
+    // console.log(fadeObj)
+
+
+
     // game init code
     // let { code, pNum } = useParams()
     let [moves, setMoves] = useState([])
@@ -21,6 +39,8 @@ const GameBoard = ({code, pNum, activeGame}) => {
 
     // cards being played Top and Bottom
     let [card1, setCard1] = useState('')
+    let [card1Fade, serCard1Fade] = useState(true)
+
     let [card2, setCard2] = useState('')
     let [card3, setCard3] = useState('')  
 
@@ -105,17 +125,18 @@ const GameBoard = ({code, pNum, activeGame}) => {
         setEScore(ePlayer ? ePlayer.score : eScore)
         console.log(c1, c2, c3)
 
-        await sleep(500)
+        fadeContext.fade.boolean = true
+        await sleep(1000)
         setCard1(c1)
         setECard3('joker')
 
 
-        await sleep(500)
+        await sleep(1000)
         setCard2(c2)
         setECard2('joker')
 
 
-        await sleep(500)
+        await sleep(1000)
         setCard3(c3)
         setECard1('joker')
 
@@ -153,7 +174,7 @@ const GameBoard = ({code, pNum, activeGame}) => {
             }
         }
 
-
+        fadeContext.fade.boolean = true
         await sleep(500)
         winStack(playerHand[0])
         aSetCard1('play_b_1')
@@ -195,34 +216,30 @@ const GameBoard = ({code, pNum, activeGame}) => {
         console.log(playerHand)
         console.log(ePlayerHand)
 
-        await sleep(500)
+        
+        // await sleep(500)
 
         setCard1('play_b')
-        setECard1('play_b')
+        // setECard1('play_b')
 
-        aSetCard1(playerHand[0])
-        aESetECard1(ePlayerHand[0])
+        // aSetCard1(playerHand[0])
+        // aESetECard1(ePlayerHand[0])
 
-        await sleep(500)
+        // await sleep(500)
 
-        setCard2('play_b')
-        setECard2('play_b')
+        // setCard2('play_b')
+        // setECard2('play_b')
 
-        aSetCard2(playerHand[1])
-        aESetECard2(ePlayerHand[1])
+        // aSetCard2(playerHand[1])
+        // aESetECard2(ePlayerHand[1])
 
-        await sleep(500)
+        // await sleep(500)
 
-        setCard3('play_b')
-        setECard3('play_b')
+        // setCard3('play_b')
+        // setECard3('play_b')
 
-        aSetCard3(playerHand[2])
-        aESetECard3(ePlayerHand[2])
-
-        // await sleep(5000)
-
-        // console.log('DONE:   BBBBBBBBBBBBBBBBBBBBB')
-
+        // aSetCard3(playerHand[2])
+        // aESetECard3(ePlayerHand[2])
 
     }
 
@@ -279,19 +296,19 @@ const GameBoard = ({code, pNum, activeGame}) => {
                 />
                 <div id='center-center'>
                     <div>
-                        <Card imgName={aECard1 === '' ? 'play_b_1' : aECard1} />
-                        <Card imgName={aECard2 === '' ? 'play_b_2' : aECard2} />
-                        <Card imgName={aECard3 === '' ? 'play_b_3' : aECard3} />
+                        <Card backImg={'play_b_1'} imgName={aECard1 === '' ? 'play_b_1' : aECard1} />
+                        <Card backImg={'play_b_2'} imgName={aECard2 === '' ? 'play_b_2' : aECard2} />
+                        <Card backImg={'play_b_3'} imgName={aECard3 === '' ? 'play_b_3' : aECard3} />
                     </div>
                     <div>
-                        <Card imgName={aCard1 === '' ? 'play_b_1' : aCard1} />
-                        <Card imgName={aCard2 === '' ? 'play_b_2' : aCard2} />
-                        <Card imgName={aCard3 === '' ? 'play_b_3' : aCard3} />
+                        <Card backImg={'play_b_1'} fade={card1Fade} imgName={aCard1 === '' ? 'play_b_1' : aCard1} />
+                        <Card backImg={'play_b_2'} imgName={aCard2 === '' ? 'play_b_2' : aCard2} />
+                        <Card backImg={'play_b_3'} imgName={aCard3 === '' ? 'play_b_3' : aCard3} />
                     </div>
                 </div>
                 <PlayerCardArea centerTB='center-bottom' 
                     eCard1={eCard1} eCard2={eCard2} eCard3={eCard3} 
-                    card1={card1} card2={card2} card3={card3} 
+                    card1={card1} card1Fade={card1Fade} card2={card2} card3={card3} 
                     isDisabled={isDisabled} 
                     setPosition={setPosition} 
                 />
