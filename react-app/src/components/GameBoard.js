@@ -10,13 +10,14 @@ import PlayerCardArea from './PlayerCardArea.js'
 // outside of your component, initialize the socket variable
 let socket;
 
-const GameBoard = () => {
+const GameBoard = ({code, pNum, activeGame}) => {
     // game init code
-    let { code, pNum } = useParams()
+    // let { code, pNum } = useParams()
     let [moves, setMoves] = useState([])
     let [gameState, setGameState] = useState({})
     let [clickedBtns, setClickedBtns] = useState([])
     let [clickedBatBtn, setClickedBatBtn] = useState(false)
+    console.log(code, pNum, activeGame)
 
     // cards being played Top and Bottom
     let [card1, setCard1] = useState('')
@@ -47,29 +48,32 @@ const GameBoard = () => {
     useEffect(() => {
         console.log(gameState)
         if (gameState[`player${pNum}`] && gameState[`player${pNum === '1' ? 2 : 1}`]) {
-            gameStepper()
+            gameStepper() // runs animated card sequence, base on latest play by players
         } else if (gameState[`player${pNum}`]) {
-            serveCards()
+            serveCards() // runs animated card sequece to start game
         }
 
     }, [gameState])
 
     useEffect(() => {
-        // create websocket
-        socket = io();
-        // listen for chat events
-        socket.on(`${code}-${pNum}`, (gameState) => {
-            // when we recieve a chat, add it into our messages array in state
-            setGameState(gameState)
-            // console.log(gameState)
-        })
-        // console.log(moves)
-        socket.emit("games", { pNum: pNum, 'game_id': code, moves })
-        // when component unmounts, disconnect
-        return (() => {
-            socket.disconnect()
-        })
-    }, [code])
+        console.log(activeGame)
+        if (activeGame) {
+            // create websocket
+            socket = io();
+            // listen for chat events
+            socket.on(`${code}-${pNum}`, (gameState) => {
+                // when we recieve a chat, add it into our messages array in state
+                setGameState(gameState)
+                // console.log(gameState)
+            })
+            // console.log(moves)
+            socket.emit("games", { pNum: pNum, 'game_id': code, moves })
+            // when component unmounts, disconnect
+            return (() => {
+                socket.disconnect()
+            })
+        }
+    }, [activeGame])
 
 
     const sleep = (ms) => {
@@ -93,7 +97,6 @@ const GameBoard = () => {
         let c1, c2, c3
         if (playerState?.deck) [c1, c2, c3] = playerState?.deck.slice(0, 3)
         setDeck(playerState.deck)
-        // setClickedBatBtn(true)
 
         let ePlayer = gameState[`player${pNum == 1 ? 2 : 1}`]
         setScore(playerState.score)
@@ -105,14 +108,11 @@ const GameBoard = () => {
 
 
         await sleep(500)
-
         setCard2(c2)
         setECard2('joker')
 
 
         await sleep(500)
-
-
         setCard3(c3)
         setECard1('joker')
 
@@ -137,7 +137,6 @@ const GameBoard = () => {
                 console.log('hello2222')
                 winStack = setEStack
             }
-            // winStack = setMyStack
         } else { // player2 wins battle
             console.log('heeeee', pNum, countOf2)
             if (pNum === '2') {
@@ -147,55 +146,44 @@ const GameBoard = () => {
                 console.log('heeEEE')
                 winStack = setEStack
             }
-            // winStack = setEStack
         }
 
 
         await sleep(2000)
-        // let card1 = aCard1
         winStack(playerHand[0])
         aSetCard1('play_b_1')
 
 
         await sleep(500)
-        // let ecard1 = aECard1
         winStack(ePlayerHand[0])
         aESetECard1('play_b_1')
 
         await sleep(500)
-        // let card1 = aCard1
         winStack(playerHand[1])
         aSetCard2('play_b_2')
 
 
         await sleep(500)
-        // let ecard1 = aECard1
         winStack(ePlayerHand[1])
         aESetECard2('play_b_2')
 
 
         await sleep(500)
-        // let card1 = aCard1
         winStack(playerHand[2])
         aSetCard3('play_b_3')
 
 
         await sleep(500)
-        // let ecard1 = aECard1
         winStack(ePlayerHand[2])
         aESetECard3('play_b_3')
 
         await sleep(500)
-        // let ecard1 = aECard1
         winStack('card-back')
-        // aESetECard3('card-back')
     }
 
     const moveCardsToBattle = async () => {
         let playerHand = gameState[`player${pNum}`].curr_play
         let ePlayerHand = gameState[`player${pNum === '1' ? 2 : 1}`].curr_play
-
-        // console.log(playerHand, ePlayerHand)
 
         await sleep(2000)
 
@@ -228,7 +216,6 @@ const GameBoard = () => {
 
 
     const sendMoves = () => {
-        // e.preventDefault()
         let moves = [card1, card2, card3]
         setClickedBatBtn(true)
         setMoves(moves)
@@ -239,8 +226,6 @@ const GameBoard = () => {
     const setPosition = (e, mIdx, card) => {
         e.target.classList.add('red')
         setClickedBtns(clickedBtns.concat([e.target]))
-        // console.log(e.target)
-        // e.classList.add('red')
         let dupMoves = moves.slice(0);
 
         dupMoves[mIdx] = card;
@@ -252,16 +237,12 @@ const GameBoard = () => {
 
     const isDisabled = (idx, card) => {
         if (card === card1 && moves.includes(card)) {
-            // console.log('in', moves, idx, card)
             return moves[idx] !== card
         } else if (card === card2 && moves.includes(card)) {
-            // console.log('in', moves, idx, card)
             return moves[idx] !== card
         } else if (card === card3 && moves.includes(card)) {
-            // console.log('in', moves, idx, card)
             return moves[idx] !== card
         }
-        // console.log('out: ', moves, idx, card)
         return moves[idx]
     }
 
