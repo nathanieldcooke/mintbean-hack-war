@@ -126,17 +126,18 @@ const GameBoard = ({code, pNum, activeGame}) => {
         console.log(c1, c2, c3)
 
         fadeContext.fade.boolean = true
-        await sleep(1000)
+        fadeContext.fade.type = 'F'
+        await sleep(1500)
         setCard1(c1)
         setECard3('joker')
 
 
-        await sleep(1000)
+        await sleep(1500)
         setCard2(c2)
         setECard2('joker')
 
 
-        await sleep(1000)
+        await sleep(1500)
         setCard3(c3)
         setECard1('joker')
 
@@ -174,7 +175,7 @@ const GameBoard = ({code, pNum, activeGame}) => {
             }
         }
 
-        fadeContext.fade.boolean = true
+        fadeContext.fade.boolean = false
         await sleep(500)
         winStack(playerHand[0])
         aSetCard1('play_b_1')
@@ -208,47 +209,67 @@ const GameBoard = ({code, pNum, activeGame}) => {
     }
 
     const moveCardsToBattle = async () => {
-        console.log('BBBBBBBBBBBBBBBBBBBBB')
 
         let playerHand = gameState[`player${pNum}`].curr_play
         let ePlayerHand = gameState[`player${pNum === '1' ? 2 : 1}`].curr_play
 
-        console.log(playerHand)
-        console.log(ePlayerHand)
-
         
-        // await sleep(500)
+        for (let card of [card1, card2, card3]) {
+            
+            let cIdx = playerHand.indexOf(card)
+            
+            await sleep(1000)
+            // fadeContext.fade.boolean = true
+            fadeContext.fade.type = 'B'
+            if (card === card1) setCard1('play_b');
+            if (card === card2) setCard2('play_b');
+            if (card === card3) setCard3('play_b');
 
-        setCard1('play_b')
-        // setECard1('play_b')
+            await sleep(1000)
+            // fadeContext.fade.boolean = true
+            fadeContext.fade.type = 'F'
+            if (cIdx === 0) aSetCard1(playerHand[cIdx]);
+            if (cIdx === 1) aSetCard2(playerHand[cIdx]);
+            if (cIdx === 2) aSetCard3(playerHand[cIdx]);
+        }
 
-        // aSetCard1(playerHand[0])
-        // aESetECard1(ePlayerHand[0])
 
-        // await sleep(500)
+        await sleep(1000)
+        // fadeContext.fade.boolean = true
+        fadeContext.fade.type = 'B'
+        setECard1('play_b')
+        setECard2('play_b')
+        setECard3('play_b')
 
-        // setCard2('play_b')
-        // setECard2('play_b')
+        await sleep(1000)
 
-        // aSetCard2(playerHand[1])
-        // aESetECard2(ePlayerHand[1])
+        // fadeContext.fade.boolean = true
+        fadeContext.fade.type = 'F'
+        aESetECard1('joker')
+        aESetECard2('joker')
+        aESetECard3('joker')
 
-        // await sleep(500)
+        await sleep(1500)
+        aESetECard1(ePlayerHand[0])
+        //say who won
 
-        // setCard3('play_b')
-        // setECard3('play_b')
 
-        // aSetCard3(playerHand[2])
-        // aESetECard3(ePlayerHand[2])
+        await sleep(1500)
+        aESetECard2(ePlayerHand[1])
+        //say who won
+
+        await sleep(1500)
+        aESetECard3(ePlayerHand[2])
+        //say who won
 
     }
 
 
 
     const sendMoves = () => {
-        let moves = [card1, card2, card3]
+        // let moves = moves
         setClickedBatBtn(true)
-        setMoves(moves)
+        // setMoves(moves)
 
         socket.emit("games", { pNum: pNum, 'game_id': code, moves})
     }

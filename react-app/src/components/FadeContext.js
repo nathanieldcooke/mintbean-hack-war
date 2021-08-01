@@ -3,7 +3,7 @@ export const FadeContext = createContext();
 
 
 export function FadeProvider(props) {
-    const [fade, setFade] = useState({ boolean: false });
+    const [fade, setFade] = useState({ boolean: false, type: 'F'});
     
     
     return (
