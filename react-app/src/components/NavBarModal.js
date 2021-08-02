@@ -7,21 +7,38 @@ import SignUpForm from './auth/SignUpForm';
 import GameBoard from './GameBoard';
 import './NavBarModal.css';
 import Splash from './Splash';
+ 
+Storage = window.localStorage
 
 // wallpaper credit: https://wall.alphacoders.com/big.php?i=619513
 
 const NavBarModal = () => {
 
-  const user = useSelector(state => state.session.user)
+  
+  // if (!) {
+    //   Storage.setItem('visited', true)
+    // }
+    
+    const user = useSelector(state => state.session.user)
+    
+    const [open, setOpen] = useState(true) // false
+    const [splashOpen, setSplashOpen] = useState(false) // true
+    const [code, setCode] = useState('')
+    const [newCode, setNewCode] = useState('')
+    const [playerNum, setPlayerNum] = useState(null)
+    const [activeGame, setActiveGame] = useState(false)
 
-  const [open, setOpen] = useState(true) // false
-  const [splashOpen, setSplashOpen] = useState(false) // true
-  const [code, setCode] = useState('')
-  const [newCode, setNewCode] = useState('')
-  const [playerNum, setPlayerNum] = useState(null)
-  const [activeGame, setActiveGame] = useState(false)
+    useEffect(() => {
+      if (Storage.getItem('visited')) {
+        setSplashOpen(true)
+        setOpen(false)
+      } else {
+        Storage.setItem('visited', true)
+      }
+    }, [])
 
-  // buttons of modal menu
+    
+    // buttons of modal menu
   const [homeBtn, setHomeBtn] = useState(true)
   // const [loginBtn, setLoginBtn] = useState(true)
   // const [sighnUpBtn, setSignUpBtn] = useState(true)
@@ -219,10 +236,12 @@ const NavBarModal = () => {
 
   return (
     <>
-      {open ? modalIcon : null}
-      {!open ? modalMenu : null}
-      {splashOpen ? splashIcon : null}
-      {!splashOpen ? <Splash splashOpen={splashOpen} setSplashOpen={setSplashOpen} open={open} setOpen={setOpen} /> : null}
+      {open ? modalIcon : modalMenu}
+      {/* {!open ?  : null} */}
+
+      {splashOpen ? splashIcon : <Splash splashOpen={splashOpen} setSplashOpen={setSplashOpen} open={open} setOpen={setOpen} />}
+      {/* {!splashOpen ?  : null} */}
+
       < GameBoard code={code} pNum={`${playerNum}`} activeGame={activeGame}/>
     </>
   );

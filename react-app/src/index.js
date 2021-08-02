@@ -6,7 +6,9 @@ import App from './App';
 import configureStore from './store';
 import { FadeProvider } from './components/FadeContext';
 
+
 const store = configureStore();
+
 
 ReactDOM.render(
   <React.StrictMode>
