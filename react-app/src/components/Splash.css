@@ -54,7 +54,8 @@
     line-height: 1;
     font-size: 2em;
     font-weight: 800;
-    color: chartreuse;
+    color: rgb(223, 223, 0);
+    /* color: chartreuse; */
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 

@@ -201,8 +201,8 @@ const NavBarModal = () => {
             <SignUpForm />
           </li>} */}
           {inviteCode &&
-          <li>
-              <div>Invite Code</div>
+          <li id='invite-code'>
+              <div>Invite Code:</div>
               <div>{code}</div>
           </li>
           }
