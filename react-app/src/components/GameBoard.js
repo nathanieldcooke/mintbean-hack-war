@@ -35,6 +35,9 @@ const GameBoard = ({code, pNum, activeGame}) => {
     let [gameState, setGameState] = useState({})
     let [clickedBtns, setClickedBtns] = useState([])
     let [clickedBatBtn, setClickedBatBtn] = useState(false)
+    let [battle1, setBattle1] = useState('')
+    let [battle2, setBattle2] = useState('')
+    let [battle3, setBattle3] = useState('')
     // console.log(code, pNum, activeGame)
 
     // cards being played Top and Bottom
@@ -249,18 +252,36 @@ const GameBoard = ({code, pNum, activeGame}) => {
         aESetECard2('joker')
         aESetECard3('joker')
 
+        let strArrOfWL = gameState.winLose.map(num => {
+            if (num === 0) {
+                return 'tie'
+            } else if (num === 1 && pNum === '1') {
+                return 'win'
+            } else if (num === 2 && pNum === '2') {
+                return 'win'
+            } else {
+                return 'lose'
+            }
+
+        })
+
         await sleep(1500)
         aESetECard1(ePlayerHand[0])
-        //say who won
-
+        setBattle1(strArrOfWL[0])
 
         await sleep(1500)
         aESetECard2(ePlayerHand[1])
-        //say who won
+        setBattle2(strArrOfWL[1])
 
         await sleep(1500)
         aESetECard3(ePlayerHand[2])
-        //say who won
+        setBattle3(strArrOfWL[2])
+
+        await sleep(1500)
+        setBattle1('')
+        setBattle2('')
+        setBattle3('')
+
 
     }
 
@@ -320,6 +341,23 @@ const GameBoard = ({code, pNum, activeGame}) => {
                         <Card backImg={'play_b_1'} imgName={aECard1 === '' ? 'play_b_1' : aECard1} />
                         <Card backImg={'play_b_2'} imgName={aECard2 === '' ? 'play_b_2' : aECard2} />
                         <Card backImg={'play_b_3'} imgName={aECard3 === '' ? 'play_b_3' : aECard3} />
+                    </div>
+                    <div>
+                        {battle1 === '' && <span style={{opacity: '0'}}>nan</span>}
+                        {battle1 === 'win' && <span style={{color: 'blue'}}>Win</span>}
+                        {battle1 === 'lose' && <span style={{color: 'red'}}>Lose</span>}
+                        {battle1 === 'tie' && <span style={{color: 'yellow'}}>Lose</span>}
+
+                        {battle2 === '' && <span style={{opacity: '0'}}>nan</span>}
+                        {battle2 === 'win' && <span style={{color: 'blue'}}>Win</span>}
+                        {battle2 === 'lose' && <span style={{color: 'red'}}>Lose</span>}
+                        {battle2 === 'tie' && <span style={{color: 'yellow'}}>Lose</span>}
+
+                        {battle3 === '' && <span style={{opacity: '0'}}>nan</span>}
+                        {battle3 === 'win' && <span style={{color: 'blue'}}>Win</span>}
+                        {battle3 === 'lose' && <span style={{color: 'red'}}>Lose</span>}
+                        {battle3 === 'tie' && <span style={{color: 'yellow'}}>Lose</span>}
+
                     </div>
                     <div>
                         <Card backImg={'play_b_1'} fade={card1Fade} imgName={aCard1 === '' ? 'play_b_1' : aCard1} />

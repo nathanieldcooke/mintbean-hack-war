@@ -12,7 +12,7 @@ const Card = ({backImg, imgName }) => {
 
     // let time = fade ? 2500 : 0;
 
-    console.log('FADE:   ',fade, type)
+    // console.log('FADE:   ',fade, type)
 
     return (
         <div className='card'

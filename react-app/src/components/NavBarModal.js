@@ -155,6 +155,7 @@ const NavBarModal = () => {
             <input
               value={newCode}
               onChange={(e) => setNewCode(e.target.value)}
+              placeholder='Invite Code'
             />
           </li>}
           {loginForm && <li>
