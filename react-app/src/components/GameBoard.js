@@ -15,7 +15,7 @@ import PlayerCardArea from './PlayerCardArea.js'
 // outside of your component, initialize the socket variable
 let socket;
 
-const GameBoard = ({code, pNum, activeGame}) => {
+const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
 
     const fadeContext = useContext(FadeContext)
     // console.log("CONTEXT: ", `${fadeContext.fade.boolean}`)
@@ -90,7 +90,7 @@ const GameBoard = ({code, pNum, activeGame}) => {
                 // console.log(gameState)
             })
             // console.log(moves)
-            socket.emit("games", { pNum: pNum, 'game_id': code, moves })
+            socket.emit("games", { pNum: pNum, 'game_id': code, moves, compPlayer: compPlayer })
             // when component unmounts, disconnect
             return (() => {
                 socket.disconnect()
@@ -292,7 +292,7 @@ const GameBoard = ({code, pNum, activeGame}) => {
         setClickedBatBtn(true)
         // setMoves(moves)
 
-        socket.emit("games", { pNum: pNum, 'game_id': code, moves})
+        socket.emit("games", { pNum: pNum, 'game_id': code, moves, compPlayer})
     }
 
     const setPosition = (e, mIdx, card) => {

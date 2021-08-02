@@ -27,6 +27,8 @@ const NavBarModal = () => {
     const [newCode, setNewCode] = useState('')
     const [playerNum, setPlayerNum] = useState(null)
     const [activeGame, setActiveGame] = useState(false)
+    const [compPlayer, setCompPlayer] = useState(false)
+
 
     useEffect(() => {
       if (Storage.getItem('visited')) {
@@ -91,6 +93,7 @@ const NavBarModal = () => {
 
   const startNewGameC = () => {
     // let compCode = code
+    setOpen(true)
     setCode(code)
     setPlayerNum(1)
     setActiveGame(true)
@@ -101,7 +104,7 @@ const NavBarModal = () => {
     setnewGameBtn(false)
     setJoinGameBtn(false)
 
-
+    setCompPlayer(true)
     setCloseBtn(true)
     setInviteCode(true)
   }
@@ -267,7 +270,7 @@ const NavBarModal = () => {
       {splashOpen ? splashIcon : <Splash splashOpen={splashOpen} setSplashOpen={setSplashOpen} open={open} setOpen={setOpen} activeGame={activeGame} />}
       {/* {!splashOpen ?  : null} */}
 
-      < GameBoard code={code} pNum={`${playerNum}`} activeGame={activeGame}/>
+      < GameBoard code={code} pNum={`${playerNum}`} activeGame={activeGame} compPlayer={compPlayer}/>
     </>
   );
 }

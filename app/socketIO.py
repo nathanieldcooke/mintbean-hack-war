@@ -1,5 +1,6 @@
 import os
 import datetime
+import random
 # from app.models import channel
 from flask_socketio import SocketIO, emit
 # from .models import db, Message
@@ -42,19 +43,28 @@ def handle_games(data):
         # return None
         # gameState['player1'] = game.player2.to_dict()
 
-    if data['pNum'] == '2':
-        print('IN 2 IF!!!!!!!!!!!!!!!!!!')
-        game.player2.curr_play = data['moves']
-        gameState = dict()
-        gameState['player2'] = game.player2.to_dict()
-        emit(f'{game.game_code}-2', gameState, broadcast=True)
+    if data['compPlayer']:
+        compHand = game.player2.deck[:3]
+        random.shuffle(compHand)
+        game.player2.curr_play = compHand
+        # game.player2.curr_play = random.shuffle()
+    else:
+        if data['pNum'] == '2':
+            print('IN 2 IF!!!!!!!!!!!!!!!!!!')
+            game.player2.curr_play = data['moves']
+            gameState = dict()
+            gameState['player2'] = game.player2.to_dict()
+            emit(f'{game.game_code}-2', gameState, broadcast=True)
         # return None
+
+    print(game.player1.curr_play, game.player2.curr_play)
 
     if game.player1.curr_play and game.player2.curr_play:
         print('IN L IF!!!!!!!!!!!!!!!!!!')
         gameState = game.game_loop()
         emit(f'{game.game_code}-1', gameState, broadcast=True)
-        emit(f'{game.game_code}-2', gameState, broadcast=True)
+        if not data['compPlayer']:
+            emit(f'{game.game_code}-2', gameState, broadcast=True)
         # return None
     return None
     
