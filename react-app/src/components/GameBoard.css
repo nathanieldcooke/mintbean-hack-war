@@ -1,7 +1,7 @@
 #board {
     height: 100vh;
     width: 100vw;
-    background-color: green;
+    background-color: rgb(12, 45, 12);
     display: flex;
 }
 
@@ -76,7 +76,7 @@
     align-items: center;
     /* padding: 1em; */
     /* background-color: blue; */
-    border-top: .75em solid rgb(1, 58, 1) 
+    border-top: .75em solid rgb(1, 58, 1);
 }
 
 .card {
@@ -87,6 +87,7 @@
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center center;
+    /* background-color: black; */
     /* background-color: blue; */
     /* background-color: black; */
 }
@@ -101,7 +102,7 @@
 .buttons button, .eButtons button {
     border-radius: 100%;
     border: none;
-    background-color: rgb(0, 91, 0);
+    background-color: rgb(0, 79, 0);
     color:rgb(158, 189, 0);
     /* opacity: .5; */
 }
@@ -133,6 +134,7 @@
 .active {
     opacity: 1;
     cursor: pointer;
+    /* background-color: black; */
 }
 
 .inactive {
@@ -148,3 +150,30 @@ button.red {
     border: 20px solid black;
     animation: fade 10s ease-out;
 } */
+
+.score {
+    border: 5px solid rgb(15, 22, 14);
+    width: 90%;
+}
+
+.score div {
+    padding: .1em;
+    border-bottom: 5px solid rgb(15, 22, 14);
+    background-color: rgb(45, 23, 0);
+    color: rgb(175, 167, 2)
+}
+
+.score div:last-child {
+    padding: .1em;
+    border-bottom: none;
+}
+
+.score div span {
+    font-size: 1.5em;
+}
+
+div.counter {
+    background-color: white;
+    text-align: center;
+    color: black
+}

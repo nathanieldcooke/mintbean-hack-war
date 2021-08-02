@@ -6,12 +6,16 @@ import LogoutButton from './auth/LogoutButton';
 import SignUpForm from './auth/SignUpForm';
 import GameBoard from './GameBoard';
 import './NavBarModal.css';
+import Splash from './Splash';
+
+// wallpaper credit: https://wall.alphacoders.com/big.php?i=619513
 
 const NavBarModal = () => {
 
   const user = useSelector(state => state.session.user)
 
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(true) // false
+  const [splashOpen, setSplashOpen] = useState(true)
   const [code, setCode] = useState('')
   const [newCode, setNewCode] = useState('')
   const [playerNum, setPlayerNum] = useState(null)
@@ -109,6 +113,12 @@ const NavBarModal = () => {
     ><i className="fas fa-bars"></i></button>
   )
 
+  const splashIcon = (
+    <button className='splash-button'
+      onClick={() => splashOpen ? setSplashOpen(false) : setSplashOpen(true)}
+    ><i className="far fa-question-circle"></i></button>
+  )
+
   const modalMenu = (
     <>
       <div className='nav-container'>
@@ -185,6 +195,8 @@ const NavBarModal = () => {
     <>
       {open ? modalIcon : null}
       {!open ? modalMenu : null}
+      {splashOpen ? splashIcon : null}
+      {!splashOpen ? <Splash/> : null}
       < GameBoard code={code} pNum={`${playerNum}`} activeGame={activeGame}/>
     </>
   );

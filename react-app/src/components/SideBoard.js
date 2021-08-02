@@ -6,10 +6,16 @@ const SideBoard = ( {boardId, score, deck, stack, clickedBatBtn, moves, sendMove
         <div id={`${boardId}`}>
             <div className='score'>
                 <div>
-                    <span>Score: <span>{score}</span></span>
+                    <span>Score: </span>
+                </div>
+                <div className='counter'>
+                    <span>{score}</span>
                 </div>
                 <div>
-                    <span>Deck: <span>{boardId === 'right-board'  ? deck?.length : 52 - deck?.length}</span>/52</span>
+                    <span>Deck: </span>
+                </div>
+                <div className='counter'>
+                    <span>{boardId === 'right-board' ? deck?.length : 52 - deck?.length}/52</span>
                 </div>
                 {battleBtn ? 
                 <button
