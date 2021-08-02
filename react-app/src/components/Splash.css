@@ -22,6 +22,27 @@
     z-index: 2;
 }
 
+#rules-comp {
+    width: 90vw;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    z-index: 2;
+    border: 3px solid black
+}
+
+#me-comp {
+    width: 90vw;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    z-index: 2;
+}
+
 #splash-comp > span {
     text-align: center;
     display: block
@@ -59,7 +80,7 @@
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
-#splash-comp button {
+#div-splash-comp button {
     width: 8em;
     background-color: rgb(72, 255, 237);
     align-self: center;
@@ -70,7 +91,7 @@
 }
 
 
-#splash-comp button:hover {
+#div-splash-comp button:hover {
     background-color: rgb(0, 135, 225);
     color: white;
     transition: .3s;
@@ -81,4 +102,8 @@ button#in-game-close {
     /* border-radius: 50%; */
     background-color: red;
     /* width: 2em; */
+}
+
+#div-splash-comp.rules {
+    padding: 4em;
 }

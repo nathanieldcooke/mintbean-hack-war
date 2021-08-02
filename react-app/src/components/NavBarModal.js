@@ -106,7 +106,6 @@ const NavBarModal = () => {
 
     setCompPlayer(true)
     setCloseBtn(true)
-    setInviteCode(true)
   }
 
   const startNewGameF = () => {
