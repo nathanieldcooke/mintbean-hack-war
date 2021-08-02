@@ -73,11 +73,14 @@ nav button {
     /* border: 3px solid black; */
     color:rgb(186, 186, 0);
     /* box-sizing: border-box; */
+    transition: .5s;
 }
 
 nav button:hover {
     background-color: rgb(186, 186, 0);
     color: black;
+    transition: .5s;
+    cursor: pointer;
 }
 
 /* a {

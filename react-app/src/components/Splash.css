@@ -1,13 +1,77 @@
 #splash-div {
     /* background-image: url('../../img/splash_wb.jpg'); */
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: cover;
     background-position: center center;
     height: 90vh;
     width: 90vw;
-       position: absolute;
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
+}
+
+#splash-comp {
+    width: 90vw;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    z-index: 2;
+}
+
+#splash-comp > span {
+    text-align: center;
+    display: block
+}
+
+#war-span {
+    line-height: .75;
+    font-size: 10em;
+    font-weight: bolder;
+    color: red;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+#bat-span {
+    line-height: 1;
+    font-size: 5em;
+    color: orange;
+    font-weight: bold;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+#bat-span > span {
+    line-height: 1;
+    /* color: yellow; */
+    color: red;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+#line-span {
+    line-height: 1;
+    font-size: 2em;
+    font-weight: 800;
+    color: chartreuse;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+#splash-comp button {
+    width: 8em;
+    background-color: rgb(72, 255, 237);
+    align-self: center;
+    border-radius: 1em;
+    font-size: 1.25em;
+    border: 3px solid rgb(0, 9, 58);
+    margin: 0 1em;
+}
+
+
+#splash-comp button:hover {
+    background-color: rgb(0, 135, 225);
+    color: white;
+    transition: .3s;
+    cursor: pointer;
 }
