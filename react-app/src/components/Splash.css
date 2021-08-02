@@ -76,3 +76,9 @@
     transition: .3s;
     cursor: pointer;
 }
+
+button#in-game-close {
+    /* border-radius: 50%; */
+    background-color: red;
+    /* width: 2em; */
+}

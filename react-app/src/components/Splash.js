@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Splash.css'
 
-const Splash = ({splashOpen, setSplashOpen, open, setOpen}) => {
+const Splash = ({splashOpen, setSplashOpen, open, setOpen, activeGame}) => {
     const [splashSlide, setSplashSlide] = useState(true)
     const [rulesSlide, setRulesSlide] = useState(false)
     const [aboutMeSlide, setAboutMeSlide] = useState(false)
@@ -18,10 +18,19 @@ const Splash = ({splashOpen, setSplashOpen, open, setOpen}) => {
             <div><span id='line-span' >Where Luck Meets Reading Your Opponent</span></div>
             <div>
                 <button>Rules</button>
+                {
+                activeGame
+                ?
+                <button 
+                    id='in-game-close'
+                    onClick={() => setSplashOpen(true)}
+                >Close</button>
+                :
                 <button
                     onClick={startGame}
                 >Start Playing</button>
-                <button>About Dev</button>
+                }   
+            <button>About Dev</button>
             </div>
         </div>
     )

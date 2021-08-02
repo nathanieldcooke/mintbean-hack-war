@@ -70,6 +70,25 @@ const NavBarModal = () => {
   console.log(code)
   // console.log(newCode)
 
+
+  // copyFunc credit: w3Schools.com
+  function copyFunc(e) {
+    /* Get the text field */
+    let copyText = e.target.parentNode.parentNode.children[0].children[0]
+
+    console.log(copyText)
+
+    /* Select the text field */
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+    /* Copy the text inside the text field */
+    document.execCommand("copy");
+
+    /* Alert the copied text */
+    alert("Copied the text: " + copyText.value);
+  }
+
   const startNewGameC = () => {
     // let compCode = code
     setCode(code)
@@ -219,8 +238,14 @@ const NavBarModal = () => {
           </li>} */}
           {inviteCode &&
           <li id='invite-code'>
-              <div>Invite Code:</div>
-              <div>{code}</div>
+            <div>Invite Code:</div>
+            <div id='invite-div'>
+              <span className='invite-span'><input type={'text'} value={code} /></span>
+              <span className='invite-span'><button
+                      onClick={e => copyFunc(e)}
+                    >Copy Code</button>
+              </span>
+            </div>
           </li>
           }
           { closeBtn && <li>
@@ -239,7 +264,7 @@ const NavBarModal = () => {
       {open ? modalIcon : modalMenu}
       {/* {!open ?  : null} */}
 
-      {splashOpen ? splashIcon : <Splash splashOpen={splashOpen} setSplashOpen={setSplashOpen} open={open} setOpen={setOpen} />}
+      {splashOpen ? splashIcon : <Splash splashOpen={splashOpen} setSplashOpen={setSplashOpen} open={open} setOpen={setOpen} activeGame={activeGame} />}
       {/* {!splashOpen ?  : null} */}
 
       < GameBoard code={code} pNum={`${playerNum}`} activeGame={activeGame}/>

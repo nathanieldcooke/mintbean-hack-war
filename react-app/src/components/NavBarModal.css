@@ -117,7 +117,74 @@ nav button:hover {
 #invite-code {
     background-color: white;
     /* height: 5em; */
+    padding: .5em;
     font-size: 2em;
-    width: 6em
+    /* width: 6em */
 }
 
+#invite-div {
+    display: flex;
+}
+
+.invite-span {
+    font-size: 1em;
+    text-align: center;
+}
+
+.invite-span input {
+    /* font-size: 1em; */
+    text-align: center;
+    border: none;
+}
+
+.invite-span button {
+    padding: 0;
+    font-size: .5em;
+    border: 2px solid black;
+    padding: .25em;
+    border-radius: .25em;
+    color: rgb(0, 57, 0);
+    /* font-size: .5em; */
+    /* height: 1em; */
+}
+
+
+/* credit w3school.com */
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 140px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -75px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
