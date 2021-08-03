@@ -10,19 +10,10 @@ currGames = {}
 @game_routes.route('/')
 def get_game():
     """
-    starts game
+    starts game:
+    creates game instance,
+    uses game instances game code attribute to add game to currGames dict
     """
     currGame = Game()
-
-    # currGames[currGame.game_code] = currGame
     currGames[currGame.game_code] = currGame
-
-    print(currGames)
-
-    # data = dict()
-    # data['player'] = 1
-    # data['player_deck'] = currGame.playerDecks['player1']
-    # data['deck_vals'] = currGame.deck_vals
-    # return data
-    print(currGame.game_code)
     return {'code': currGame.game_code}
