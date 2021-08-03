@@ -38,7 +38,7 @@ const NavBarModal = () => {
 
   useEffect(() => {
     const fetchCode = async () => {
-      let res = await fetch('/api/game', {
+      let res = await fetch('/api/game/', {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -50,7 +50,7 @@ const NavBarModal = () => {
   }, [])
 
   const gameReset = async () => {
-    let res = await fetch('/api/game', {
+    let res = await fetch('/api/game/', {
       headers: {
         'Content-Type': 'application/json'
       }
