@@ -2,7 +2,15 @@ import React, { useState, useEffect } from 'react';
 import Card from './Card';
 import FadeIn from './FadeIn';
 
-const PlayerCardArea = ({ centerTB, eCard1, eCard2, eCard3, card1, card1Fade, card2, card3, isDisabled, setPosition }) => {
+const PlayerCardArea = ({ centerTB, eCard1, eCard2, eCard3, card1, card1Fade, card2, card3, isDisabled, setPosition, setServedCards, servedCards }) => {
+
+
+    // const servedCards = () => {
+    //     return card1 === 'https://warbattleofe3cards.s3.us-west-1.amazonaws.com/play_b.png' ||
+    //         card2 === 'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b.png' ||
+    //         card3 === 'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b.png'
+    // }
+
     return (
         <>
             {centerTB === 'center-top'
@@ -38,18 +46,18 @@ const PlayerCardArea = ({ centerTB, eCard1, eCard2, eCard3, card1, card1Fade, ca
                     <div className='card-spot'>
                         <div className='buttons'>
                             <button
-                                className={isDisabled(0, card1) ? 'inactive' : 'active'}
-                                disabled={isDisabled(0, card1)}
+                                className={!servedCards || isDisabled(0, card1) ? 'inactive' : 'active'}
+                                disabled={!servedCards || isDisabled(0, card1)}
                                 onClick={(e) => setPosition(e, 0, card1)}
                             >1</button>
                             <button
-                                className={isDisabled(1, card1) ? 'inactive' : 'active'}
-                                disabled={isDisabled(1, card1)}
+                                className={!servedCards || isDisabled(1, card1) ? 'inactive' : 'active'}
+                                disabled={!servedCards || isDisabled(1, card1)}
                                 onClick={(e) => setPosition(e, 1, card1)}
                             >2</button>
                             <button
-                                className={isDisabled(2, card1) ? 'inactive' : 'active'}
-                                disabled={isDisabled(2, card1)}
+                                className={!servedCards || isDisabled(2, card1) ? 'inactive' : 'active'}
+                                disabled={!servedCards || isDisabled(2, card1)}
                                 onClick={(e) => setPosition(e, 2, card1)}
                             >3</button>
                         </div>
@@ -60,18 +68,18 @@ const PlayerCardArea = ({ centerTB, eCard1, eCard2, eCard3, card1, card1Fade, ca
                     <div className='card-spot'>
                         <div className='buttons'>
                             <button
-                                className={isDisabled(0, card2) ? 'inactive' : 'active'}
-                                disabled={isDisabled(0, card2)}
+                                className={!servedCards || isDisabled(0, card2) ? 'inactive' : 'active'}
+                                disabled={!servedCards || isDisabled(0, card2)}
                                 onClick={(e) => setPosition(e, 0, card2)}
                             >1</button>
                             <button
-                                className={isDisabled(1, card2) ? 'inactive' : 'active'}
-                                disabled={isDisabled(1, card2)}
+                                className={!servedCards || isDisabled(1, card2) ? 'inactive' : 'active'}
+                                disabled={!servedCards || isDisabled(1, card2)}
                                 onClick={(e) => setPosition(e, 1, card2)}
                             >2</button>
                             <button
-                                className={isDisabled(2, card2) ? 'inactive' : 'active'}
-                                disabled={isDisabled(2, card2)}
+                                className={!servedCards || isDisabled(2, card2) ? 'inactive' : 'active'}
+                                disabled={!servedCards || isDisabled(2, card2)}
                                 onClick={(e) => setPosition(e, 2, card2)}
                             >3</button>
                         </div>
@@ -80,18 +88,18 @@ const PlayerCardArea = ({ centerTB, eCard1, eCard2, eCard3, card1, card1Fade, ca
                     <div className='card-spot'>
                         <div className='buttons'>
                             <button
-                                className={isDisabled(0, card3) ? 'inactive' : 'active'}
-                                disabled={isDisabled(0, card3)}
+                                className={!servedCards || isDisabled(0, card3) ? 'inactive' : 'active'}
+                                disabled={!servedCards || isDisabled(0, card3)}
                                 onClick={(e) => setPosition(e, 0, card3)}
                             >1</button>
                             <button
-                                className={isDisabled(1, card3) ? 'inactive' : 'active'}
-                                disabled={isDisabled(1, card3)}
+                                className={!servedCards || isDisabled(1, card3) ? 'inactive' : 'active'}
+                                disabled={!servedCards || isDisabled(1, card3)}
                                 onClick={(e) => setPosition(e, 1, card3)}
                             >2</button>
                             <button
-                                className={isDisabled(2, card3) ? 'inactive' : 'active'}
-                                disabled={isDisabled(2, card3)}
+                                className={!servedCards || isDisabled(2, card3) ? 'inactive' : 'active'}
+                                disabled={!servedCards || isDisabled(2, card3)}
                                 onClick={(e) => setPosition(e, 2, card3)}
                             >3</button>
                         </div>

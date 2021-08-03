@@ -7,6 +7,9 @@
     background-color: chartreuse;
     opacity: .5;
     transform: translate(-50%, -50%);
+    /* font-size: 2em; */
+    height: 3.5em;
+    width: 3.5em;
 }
 
 .splash-button {
@@ -19,7 +22,8 @@
     opacity: .5;
     font-size: 1.25em;
     transform: translate(-50%, -50%);
-
+    height: 3em;
+    width: 3em;
 }
 
 .nav-button:hover, .splash-button:hover {

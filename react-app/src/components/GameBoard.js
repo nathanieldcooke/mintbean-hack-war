@@ -31,6 +31,7 @@ const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
 
     // game init code
     // let { code, pNum } = useParams()
+    const [servedCards, setServedCards] = useState(false)
     let [moves, setMoves] = useState([])
     let [gameState, setGameState] = useState({})
     let [clickedBtns, setClickedBtns] = useState([])
@@ -41,11 +42,11 @@ const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
     // console.log(code, pNum, activeGame)
 
     // cards being played Top and Bottom
-    let [card1, setCard1] = useState('')
+    let [card1, setCard1] = useState('https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b.png')
     let [card1Fade, serCard1Fade] = useState(true)
 
-    let [card2, setCard2] = useState('')
-    let [card3, setCard3] = useState('')  
+    let [card2, setCard2] = useState('https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b.png')
+    let [card3, setCard3] = useState('https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b.png')  
 
     let [eCard1, setECard1] = useState('')
     let [eCard2, setECard2] = useState('')
@@ -103,6 +104,8 @@ const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
+    // const lamma = true && true
+
     const gameStepper = async () => {
         setMoves([])
         clickedBtns.forEach(node => node.classList.remove('red'))
@@ -143,6 +146,8 @@ const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
         await sleep(1500)
         setCard3(c3)
         setECard1('https://warbattleof3cards.s3.us-west-1.amazonaws.com/joker.png')
+
+        setServedCards(true)
 
     }
 
@@ -288,6 +293,7 @@ const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
 
 
     const sendMoves = () => {
+        setServedCards(false)
         // let moves = moves
         setClickedBatBtn(true)
         // setMoves(moves)
@@ -334,7 +340,9 @@ const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
                     eCard1={eCard1} eCard2={eCard2} eCard3={eCard3} 
                     card1={card1} card2={card2} card3={card3} 
                     isDisabled={isDisabled} 
-                    setPosition={setPosition} 
+                    setPosition={setPosition}
+                    servedCards={servedCards}
+                    setServedCards={setServedCards} 
                 />
                 <div id='center-center'>
                     <div>
@@ -346,17 +354,17 @@ const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
                         {battle1 === '' && <span style={{opacity: '0'}}>nan</span>}
                         {battle1 === 'win' && <span style={{color: 'rgb(0, 187, 255)'}}>Win</span>}
                         {battle1 === 'lose' && <span style={{color: 'red'}}>Lose</span>}
-                        {battle1 === 'tie' && <span style={{color: 'yellow'}}>Lose</span>}
+                        {battle1 === 'tie' && <span style={{color: 'yellow'}}>Tie</span>}
 
                         {battle2 === '' && <span style={{opacity: '0'}}>nan</span>}
                         {battle2 === 'win' && <span style={{color: 'rgb(0, 187, 255)'}}>Win</span>}
                         {battle2 === 'lose' && <span style={{color: 'red'}}>Lose</span>}
-                        {battle2 === 'tie' && <span style={{color: 'yellow'}}>Lose</span>}
+                        {battle2 === 'tie' && <span style={{color: 'yellow'}}>Tie</span>}
 
                         {battle3 === '' && <span style={{opacity: '0'}}>nan</span>}
                         {battle3 === 'win' && <span style={{color: 'rgb(0, 187, 255)'}}>Win</span>}
                         {battle3 === 'lose' && <span style={{color: 'red'}}>Lose</span>}
-                        {battle3 === 'tie' && <span style={{color: 'yellow'}}>Lose</span>}
+                        {battle3 === 'tie' && <span style={{color: 'yellow'}}>Tie</span>}
 
                     </div>
                     <div>
@@ -369,7 +377,9 @@ const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
                     eCard1={eCard1} eCard2={eCard2} eCard3={eCard3} 
                     card1={card1} card1Fade={card1Fade} card2={card2} card3={card3} 
                     isDisabled={isDisabled} 
-                    setPosition={setPosition} 
+                    setPosition={setPosition}
+                    servedCards={servedCards}
+                    setServedCards={setServedCards} 
                 />
             </div>
             <SideBoard 
@@ -381,6 +391,7 @@ const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
                 moves={moves} 
                 sendMoves={sendMoves} 
                 battleBtn={true} 
+                setServedCards
             />
         </div>
     );
