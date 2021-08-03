@@ -9,8 +9,8 @@ from app.api.game_routes import currGames
 # configure cors_allowed_origins
 if os.environ.get('FLASK_ENV') == 'production':
     origins = [
-        'http://theslackx.herokuapp.com',
-        'https://theslackx.herokuapp.com'
+        'http://war-battleOf3s.herokuapp.com',
+        'https://war-battleOf3s.herokuapp.com'
     ]
 else:
     origins = "*"
