@@ -24,32 +24,32 @@ socketio = SocketIO(cors_allowed_origins=origins)
 @socketio.on("games")
 def handle_games(data):
 
-    # game = currGames[data["game_id"]]
+    game = currGames[data["game_id"]]
 
-    # if data['pNum'] == '1':
-    #     game.player1.curr_play = data['moves']
-    #     gameState = dict()
-    #     gameState['player1'] = game.player1.to_dict()
-    #     emit(f'{game.game_code}-1', gameState, broadcast=True)
-
-
-    # if data['compPlayer']:
-    #     compHand = game.player2.deck[:3]
-    #     random.shuffle(compHand)
-    #     game.player2.curr_play = compHand
-    # else:
-    #     if data['pNum'] == '2':
-    #         game.player2.curr_play = data['moves']
-    #         gameState = dict()
-    #         gameState['player2'] = game.player2.to_dict()
-    #         emit(f'{game.game_code}-2', gameState, broadcast=True)
+    if data['pNum'] == '1':
+        game.player1.curr_play = data['moves']
+        gameState = dict()
+        gameState['player1'] = game.player1.to_dict()
+        emit(f'{game.game_code}-1', gameState, broadcast=True)
 
 
-    # if game.player1.curr_play and game.player2.curr_play:
-    #     gameState = game.game_loop()
-    #     emit(f'{game.game_code}-1', gameState, broadcast=True)
-    #     if not data['compPlayer']:
-    #         emit(f'{game.game_code}-2', gameState, broadcast=True)
+    if data['compPlayer']:
+        compHand = game.player2.deck[:3]
+        random.shuffle(compHand)
+        game.player2.curr_play = compHand
+    else:
+        if data['pNum'] == '2':
+            game.player2.curr_play = data['moves']
+            gameState = dict()
+            gameState['player2'] = game.player2.to_dict()
+            emit(f'{game.game_code}-2', gameState, broadcast=True)
+
+
+    if game.player1.curr_play and game.player2.curr_play:
+        gameState = game.game_loop()
+        emit(f'{game.game_code}-1', gameState, broadcast=True)
+        if not data['compPlayer']:
+            emit(f'{game.game_code}-2', gameState, broadcast=True)
 
     return None
     
