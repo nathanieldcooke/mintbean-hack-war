@@ -344,17 +344,17 @@ const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
                     </div>
                     <div>
                         {battle1 === '' && <span style={{opacity: '0'}}>nan</span>}
-                        {battle1 === 'win' && <span style={{color: 'blue'}}>Win</span>}
+                        {battle1 === 'win' && <span style={{color: 'rgb(0, 187, 255)'}}>Win</span>}
                         {battle1 === 'lose' && <span style={{color: 'red'}}>Lose</span>}
                         {battle1 === 'tie' && <span style={{color: 'yellow'}}>Lose</span>}
 
                         {battle2 === '' && <span style={{opacity: '0'}}>nan</span>}
-                        {battle2 === 'win' && <span style={{color: 'blue'}}>Win</span>}
+                        {battle2 === 'win' && <span style={{color: 'rgb(0, 187, 255)'}}>Win</span>}
                         {battle2 === 'lose' && <span style={{color: 'red'}}>Lose</span>}
                         {battle2 === 'tie' && <span style={{color: 'yellow'}}>Lose</span>}
 
                         {battle3 === '' && <span style={{opacity: '0'}}>nan</span>}
-                        {battle3 === 'win' && <span style={{color: 'blue'}}>Win</span>}
+                        {battle3 === 'win' && <span style={{color: 'rgb(0, 187, 255)'}}>Win</span>}
                         {battle3 === 'lose' && <span style={{color: 'red'}}>Lose</span>}
                         {battle3 === 'tie' && <span style={{color: 'yellow'}}>Lose</span>}
 
