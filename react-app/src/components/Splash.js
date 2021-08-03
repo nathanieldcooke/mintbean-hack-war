@@ -100,7 +100,7 @@ const Splash = ({splashOpen, setSplashOpen, open, setOpen, activeGame}) => {
             {/* <div id='profile-img' style={{backgroundImage: `url('../../img/profile_img.jpg')`}}></div> */}
             <div>
 
-                <div id='pro-img'><img src='../../img/profile_img.jpg' /></div>
+                <div id='pro-img'><img src='https://warbattleof3cards.s3.us-west-1.amazonaws.com/profile_img.jpg' /></div>
                 <div id='about-me-text'>
                     <span id='me-title'>Nathaniel Cooke</span>
                     <span id='me-icons'>
