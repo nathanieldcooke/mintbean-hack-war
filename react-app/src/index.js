@@ -1,22 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
+// import { Provider } from 'react-redux';
 import './index.css';
 import App from './App';
-import configureStore from './store';
+// import configureStore from './store';
 import { FadeProvider } from './components/FadeContext';
 
 
-const store = configureStore();
+// const store = configureStore();
 
 
 ReactDOM.render(
   <React.StrictMode>
-      <Provider store={store}>
+      {/* <Provider store={store}> */}
         <FadeProvider>
           <App />
         </FadeProvider>
-      </Provider>
+      {/* </Provider> */}
   </React.StrictMode>,
   document.getElementById('root')
 );
