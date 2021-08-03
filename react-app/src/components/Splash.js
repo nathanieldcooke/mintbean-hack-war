@@ -147,11 +147,13 @@ const Splash = ({setSplashOpen, setOpen, activeGame}) => {
         <>
             <div className='nav-container'>
             </div>
+            {
             <div style={{ backgroundImage: `url(${backImg}` }} id={'splash-div'}>
                 {splashSlide && splashComp}
                 {rulesSlide && rulesComp}
                 {aboutMeSlide && aboutMeComp}
             </div>
+            }
         </>
     )
 }

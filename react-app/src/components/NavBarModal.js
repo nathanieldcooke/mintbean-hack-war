@@ -36,27 +36,27 @@ const NavBarModal = () => {
   const [inviteCode, setInviteCode] = useState(false)
 
 
-  useEffect(() => {
-    const fetchCode = async () => {
-      let res = await fetch('/api/game', {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      let data = await res.json()
-      setCode(data['code'])
-    }
-    fetchCode()
-  }, [])
+  // useEffect(() => {
+  //   const fetchCode = async () => {
+  //     let res = await fetch('/api/game', {
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       }
+  //     });
+  //     let data = await res.json()
+  //     setCode(data['code'])
+  //   }
+  //   fetchCode()
+  // }, [])
 
   const gameReset = async () => {
-    let res = await fetch('/api/game', {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    let data = await res.json()
-    setCode(data['code'])
+    // let res = await fetch('/api/game', {
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   }
+    // });
+    // let data = await res.json()
+    // setCode(data['code'])
   }
 
   // copyFunc credit: w3Schools.com
