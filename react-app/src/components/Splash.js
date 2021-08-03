@@ -5,7 +5,7 @@ const Splash = ({splashOpen, setSplashOpen, open, setOpen, activeGame}) => {
     const [splashSlide, setSplashSlide] = useState(true)
     const [rulesSlide, setRulesSlide] = useState(false)
     const [aboutMeSlide, setAboutMeSlide] = useState(false)
-    const [backImg, setBackImg] = useState('splash_wb.jpg')
+    const [backImg, setBackImg] = useState('https://warbattleof3cards.s3.us-west-1.amazonaws.com/splash_wb.jpg')
 
     const startGame = () => {
         setSplashOpen(true)
@@ -17,14 +17,14 @@ const Splash = ({splashOpen, setSplashOpen, open, setOpen, activeGame}) => {
         setAboutMeSlide(false)
 
         setRulesSlide(true)
-        setBackImg('game-rule.png')
+        setBackImg('https://warbattleof3cards.s3.us-west-1.amazonaws.com/game-rule.png')
     }
 
     const fromRules = () => {
         setRulesSlide(false)
 
         setSplashSlide(true)
-        setBackImg('splash_wb.jpg')
+        setBackImg('https://warbattleof3cards.s3.us-west-1.amazonaws.com/splash_wb.jpg')
     }
 
     const toAboutMe = () => {
@@ -32,14 +32,14 @@ const Splash = ({splashOpen, setSplashOpen, open, setOpen, activeGame}) => {
         setRulesSlide(false)
 
         setAboutMeSlide(true)
-        setBackImg('me-comp-back.jpeg')
+        setBackImg('https://warbattleof3cards.s3.us-west-1.amazonaws.com/me-comp-back.jpeg')
     }
 
     const fromAboutMe = () => {
         setAboutMeSlide(false)
         
         setSplashSlide(true)
-        setBackImg('splash_wb.jpg')
+        setBackImg('https://warbattleof3cards.s3.us-west-1.amazonaws.com/splash_wb.jpg')
     }
 
     const splashComp = (
@@ -148,7 +148,7 @@ const Splash = ({splashOpen, setSplashOpen, open, setOpen, activeGame}) => {
         <>
             <div className='nav-container'>
             </div>
-            <div style={{ backgroundImage: `url(https://images6.alphacoders.com/619/thumb-1920-619513.jpg)` }} id={'splash-div'}>
+            <div style={{ backgroundImage: `url(${backImg}` }} id={'splash-div'}>
                 {splashSlide && splashComp}
                 {rulesSlide && rulesComp}
                 {aboutMeSlide && aboutMeComp}

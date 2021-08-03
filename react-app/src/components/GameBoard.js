@@ -64,8 +64,8 @@ const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
     let [eScore, setEScore] = useState(1000)
     let [score, setScore] = useState(1000)
     let [deck, setDeck] = useState([])
-    let [myStack, setMyStack] = useState('card-back')
-    let [eStack, setEStack] = useState('card-back')
+    let [myStack, setMyStack] = useState('https://warbattleof3cards.s3.us-west-1.amazonaws.com/card-back.png')
+    let [eStack, setEStack] = useState('https://warbattleof3cards.s3.us-west-1.amazonaws.com/card-back.png')
 
 
     useEffect(() => {
@@ -132,17 +132,17 @@ const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
         fadeContext.fade.type = 'F'
         await sleep(1500)
         setCard1(c1)
-        setECard3('joker')
+        setECard3('https://warbattleof3cards.s3.us-west-1.amazonaws.com/joker.png')
 
 
         await sleep(1500)
         setCard2(c2)
-        setECard2('joker')
+        setECard2('https://warbattleof3cards.s3.us-west-1.amazonaws.com/joker.png')
 
 
         await sleep(1500)
         setCard3(c3)
-        setECard1('joker')
+        setECard1('https://warbattleof3cards.s3.us-west-1.amazonaws.com/joker.png')
 
     }
 
@@ -181,34 +181,34 @@ const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
         fadeContext.fade.boolean = false
         await sleep(500)
         winStack(playerHand[0])
-        aSetCard1('play_b_1')
+        aSetCard1('https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_1.png')
 
 
         await sleep(500)
         winStack(ePlayerHand[0])
-        aESetECard1('play_b_1')
+        aESetECard1('https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_1.png')
 
         await sleep(500)
         winStack(playerHand[1])
-        aSetCard2('play_b_2')
+        aSetCard2('https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_2.png')
 
 
         await sleep(500)
         winStack(ePlayerHand[1])
-        aESetECard2('play_b_2')
+        aESetECard2('https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_2.png')
 
 
         await sleep(500)
         winStack(playerHand[2])
-        aSetCard3('play_b_3')
+        aSetCard3('https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_3.png')
 
 
         await sleep(500)
         winStack(ePlayerHand[2])
-        aESetECard3('play_b_3')
+        aESetECard3('https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_3.png')
 
         await sleep(500)
-        winStack('card-back')
+        winStack('https://warbattleof3cards.s3.us-west-1.amazonaws.com/card-back.png')
     }
 
     const moveCardsToBattle = async () => {
@@ -224,9 +224,9 @@ const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
             await sleep(1000)
             // fadeContext.fade.boolean = true
             fadeContext.fade.type = 'B'
-            if (card === card1) setCard1('play_b');
-            if (card === card2) setCard2('play_b');
-            if (card === card3) setCard3('play_b');
+            if (card === card1) setCard1('https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b.png');
+            if (card === card2) setCard2('https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b.png');
+            if (card === card3) setCard3('https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b.png');
 
             await sleep(1000)
             // fadeContext.fade.boolean = true
@@ -240,17 +240,17 @@ const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
         await sleep(1000)
         // fadeContext.fade.boolean = true
         fadeContext.fade.type = 'B'
-        setECard1('play_b')
-        setECard2('play_b')
-        setECard3('play_b')
+        setECard1('https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b.png')
+        setECard2('https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b.png')
+        setECard3('https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b.png')
 
         await sleep(1000)
 
         // fadeContext.fade.boolean = true
         fadeContext.fade.type = 'F'
-        aESetECard1('joker')
-        aESetECard2('joker')
-        aESetECard3('joker')
+        aESetECard1('https://warbattleof3cards.s3.us-west-1.amazonaws.com/joker.png')
+        aESetECard2('https://warbattleof3cards.s3.us-west-1.amazonaws.com/joker.png')
+        aESetECard3('https://warbattleof3cards.s3.us-west-1.amazonaws.com/joker.png')
 
         let strArrOfWL = gameState.winLose.map(num => {
             if (num === 0) {
@@ -338,9 +338,9 @@ const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
                 />
                 <div id='center-center'>
                     <div>
-                        <Card backImg={'play_b_1'} imgName={aECard1 === '' ? 'play_b_1' : aECard1} />
-                        <Card backImg={'play_b_2'} imgName={aECard2 === '' ? 'play_b_2' : aECard2} />
-                        <Card backImg={'play_b_3'} imgName={aECard3 === '' ? 'play_b_3' : aECard3} />
+                        <Card backImg={'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_1.png'} imgName={aECard1 === '' ? 'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_1.png' : aECard1} />
+                        <Card backImg={'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_2.png'} imgName={aECard2 === '' ? 'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_2.png' : aECard2} />
+                        <Card backImg={'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_3.png'} imgName={aECard3 === '' ? 'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_3.png' : aECard3} />
                     </div>
                     <div>
                         {battle1 === '' && <span style={{opacity: '0'}}>nan</span>}
@@ -360,9 +360,9 @@ const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
 
                     </div>
                     <div>
-                        <Card backImg={'play_b_1'} fade={card1Fade} imgName={aCard1 === '' ? 'play_b_1' : aCard1} />
-                        <Card backImg={'play_b_2'} imgName={aCard2 === '' ? 'play_b_2' : aCard2} />
-                        <Card backImg={'play_b_3'} imgName={aCard3 === '' ? 'play_b_3' : aCard3} />
+                        <Card backImg={'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_1.png'} fade={card1Fade} imgName={aCard1 === '' ? 'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_1.png' : aCard1} />
+                        <Card backImg={'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_2.png'} imgName={aCard2 === '' ? 'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_2.png' : aCard2} />
+                        <Card backImg={'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_3.png'} imgName={aCard3 === '' ? 'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_3.png' : aCard3} />
                     </div>
                 </div>
                 <PlayerCardArea centerTB='center-bottom' 

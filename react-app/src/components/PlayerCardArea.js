@@ -9,7 +9,7 @@ const PlayerCardArea = ({ centerTB, eCard1, eCard2, eCard3, card1, card1Fade, ca
             ?
                 <div id='center-top'>
                     <div className='card-spot'>
-                        <Card backImg={'play_b'} imgName={eCard1 === '' ? 'play_b' : eCard1} />
+                        <Card backImg={'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b.png'} imgName={eCard1 === '' ? 'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b.png' : eCard1} />
                         <div className='eButtons'>
                             <button>1</button>
                             <button>2</button>
@@ -17,7 +17,7 @@ const PlayerCardArea = ({ centerTB, eCard1, eCard2, eCard3, card1, card1Fade, ca
                         </div>
                     </div>
                     <div className='card-spot'>
-                        <Card backImg={'play_b'} imgName={eCard2 === '' ? 'play_b' : eCard2} />
+                        <Card backImg={'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b.png'} imgName={eCard2 === '' ? 'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b.png' : eCard2} />
                         <div className='eButtons'>
                             <button>1</button>
                             <button>2</button>
@@ -25,7 +25,7 @@ const PlayerCardArea = ({ centerTB, eCard1, eCard2, eCard3, card1, card1Fade, ca
                         </div>
                     </div>
                     <div className='card-spot'>
-                        <Card backImg={'play_b'} imgName={eCard3 === '' ? 'play_b' : eCard3} />
+                        <Card backImg={'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b.png'} imgName={eCard3 === '' ? 'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b.png' : eCard3} />
                         <div className='eButtons'>
                             <button>1</button>
                             <button>2</button>
@@ -54,7 +54,7 @@ const PlayerCardArea = ({ centerTB, eCard1, eCard2, eCard3, card1, card1Fade, ca
                             >3</button>
                         </div>
                         {/* <FadeIn> */}
-                            <Card key={`${card1}`} backImg={'play_b'} fade={card1Fade} imgName={card1 === '' ? 'play_b' : card1}/>
+                            <Card key={`${card1}`} backImg={'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b.png'} fade={card1Fade} imgName={card1 === '' ? 'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b.png' : card1}/>
                         {/* </FadeIn> */}
                     </div>
                     <div className='card-spot'>
@@ -75,7 +75,7 @@ const PlayerCardArea = ({ centerTB, eCard1, eCard2, eCard3, card1, card1Fade, ca
                                 onClick={(e) => setPosition(e, 2, card2)}
                             >3</button>
                         </div>
-                        <Card backImg={'play_b'} imgName={card2 === '' ? 'play_b' : card2} />
+                        <Card backImg={'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b.png'} imgName={card2 === '' ? 'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b.png' : card2} />
                     </div>
                     <div className='card-spot'>
                         <div className='buttons'>
@@ -95,7 +95,7 @@ const PlayerCardArea = ({ centerTB, eCard1, eCard2, eCard3, card1, card1Fade, ca
                                 onClick={(e) => setPosition(e, 2, card3)}
                             >3</button>
                         </div>
-                        <Card backImg={'play_b'} imgName={card3 === '' ? 'play_b' : card3} />
+                        <Card backImg={'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b.png'} imgName={card3 === '' ? 'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b.png' : card3} />
                     </div>
                 </div>
             }

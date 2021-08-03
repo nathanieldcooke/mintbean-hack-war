@@ -16,14 +16,14 @@ const Card = ({backImg, imgName }) => {
 
     return (
         <div className='card'
-            style={{backgroundImage: `url(../../img/${backImg}.png)`}}
+            style={{backgroundImage: `url(${backImg})`}}
         >
         {
         !fade
         ?
         <img
             alt={`${imgName}=${backImg}`}
-            src={`../../img/${imgName}.png`}
+            src={`${imgName}`}
             height='100%' />
         :
             type === 'F' || type === 'B'
@@ -31,14 +31,14 @@ const Card = ({backImg, imgName }) => {
             <FadeIn key={`${imgName}-f`} duration={2500}>
             <img     
                 alt={`${imgName}=${backImg}`} 
-                src={`../../img/${imgName}.png`} 
+                src={`${imgName}`} 
                 height='100%' />
             </FadeIn>
             :
             <FadeIn key={`${imgName}-b`} duration={2500}>
                 <img
                     alt={`${imgName}=${backImg}`}
-                    src={`../../img/${imgName}.png`}
+                    src={`${imgName}`}
                     height='100%' />
             </FadeIn>
             // <FadeOut key={`${imgName}-b`} duration={2500}>
