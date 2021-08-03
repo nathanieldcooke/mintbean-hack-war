@@ -49,6 +49,16 @@ const NavBarModal = () => {
     fetchCode()
   }, [])
 
+  const gameReset = async () => {
+    let res = await fetch('/api/game', {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    let data = await res.json()
+    setCode(data['code'])
+  }
+
   // copyFunc credit: w3Schools.com
   function copyFunc(e) {
     /* Get the text field */
@@ -70,13 +80,22 @@ const NavBarModal = () => {
     setCode(code)
     setPlayerNum(1)
     setActiveGame(true)
-    setCloseBtn(true)
 
     setnewGameBtn(false)
     setJoinGameBtn(false)
 
     setCompPlayer(true)
     setCloseBtn(true)
+  }
+
+  const resetGame = () => {
+    setOpen(false)
+    setActiveGame(false)
+    setCloseBtn(false)
+    setnewGameBtn(true)
+    setJoinGameBtn(true)
+    setCloseBtn(false)
+    gameReset()
   }
 
   const startNewGameF = () => {
@@ -164,7 +183,7 @@ const NavBarModal = () => {
           <li id='invite-code'>
             <div>Invite Code:</div>
             <div id='invite-div'>
-              <span className='invite-span'><input type={'text'} value={code} /></span>
+              <span className='invite-span'><input type={'text'} readOnly={true} value={code} /></span>
               <span className='invite-span'><button
                       onClick={e => copyFunc(e)}
                     >Copy Code</button>
@@ -189,7 +208,7 @@ const NavBarModal = () => {
 
       {splashOpen ? splashIcon : <Splash splashOpen={splashOpen} setSplashOpen={setSplashOpen} open={open} setOpen={setOpen} activeGame={activeGame} />}
 
-      < GameBoard code={code} pNum={`${playerNum}`} activeGame={activeGame} compPlayer={compPlayer}/>
+      < GameBoard code={code} pNum={`${playerNum}`} activeGame={activeGame} resetGame={resetGame} compPlayer={compPlayer}/>
     </>
   );
 }

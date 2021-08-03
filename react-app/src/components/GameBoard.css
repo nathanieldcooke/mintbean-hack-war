@@ -158,5 +158,18 @@ button.red {
 div.counter {
     background-color: white;
     text-align: center;
-    color: black
+    color: black;
+}
+
+.show-win-lose {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4em;
+    background-color: rgb(0, 238, 255);
+    border-radius: .25em;
+    border: 5px solid black;
+    color: rgb(0, 0, 0);
+    padding: .1em;
 }

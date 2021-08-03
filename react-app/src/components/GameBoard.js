@@ -9,9 +9,16 @@ import PlayerCardArea from './PlayerCardArea.js'
 
 let socket;
 
-const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
+const GameBoard = ({code, pNum, activeGame, resetGame, compPlayer}) => {
 
     const fadeContext = useContext(FadeContext)
+
+    // player lose handlers
+    const [p1DLose, setP1DLose] = useState(false)
+    const [p2DLose, setP2DLose] = useState(false)
+    const [p1SLose, setP1SLose] = useState(false)
+    const [p2SLose, setP2SLose] = useState(false)
+
 
     const [servedCards, setServedCards] = useState(false)
     let [moves, setMoves] = useState([])
@@ -81,6 +88,35 @@ const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
+    const gameOver = async () => {
+        let num = gameState['over'][1]
+        if (gameState['over'] === 'p1 deck lose') {
+            if (pNum === num) {
+                setP1DLose('You Lose!!!')
+            } else {
+                setP1DLose('You Win!!!')
+            }
+        } else if (gameState['over'] === 'p1 score lose') {
+            if (pNum === num) {
+                setP1SLose('You Lose!!!')
+            } else {
+                setP1SLose('You Win!!!')
+            }
+        } else if (gameState['over'] === 'p2 deck lose') {
+            if (pNum === num) {
+                setP2DLose('You Lose!!!')
+            } else {
+                setP2DLose('You Win!!!')
+            }
+        } else if (gameState['over'] === 'p2 score lose') {
+            if (pNum === num) {
+                setP2SLose('You Lose!!!')
+            } else {
+                setP2SLose('You Win!!!')
+            }
+        }
+    }
+
     const gameStepper = async () => {
         setMoves([])
         clickedBtns.forEach(node => node.classList.remove('red'))
@@ -88,8 +124,21 @@ const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
 
         await moveCardsToBattle()
         await moveCardsToWinnerDeck() 
-        await serveCards()
-        setClickedBatBtn(false)
+
+        if (gameState['over']) {
+            gameOver()
+            await sleep(3000)
+            resetGame()
+            setP1DLose(false)
+            setP1SLose(false)
+            setP2DLose(false)
+            setP2SLose(false)
+
+        } else {
+            await serveCards()
+            setClickedBatBtn(false)
+        }
+
     }
 
     const serveCards = async () => {
@@ -285,73 +334,80 @@ const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
     
 
     return (
-        <div id='board'>
-            <SideBoard 
-                boardId='left-board' 
-                score={eScore} 
-                deck={deck} 
-                stack={myStack} 
-            />
-            <div id='center-board'>
-                <PlayerCardArea 
-                    centerTB='center-top' 
-                    eCard1={eCard1} eCard2={eCard2} eCard3={eCard3} 
-                    card1={card1} card2={card2} card3={card3} 
-                    isDisabled={isDisabled} 
-                    setPosition={setPosition}
-                    servedCards={servedCards}
-                    setServedCards={setServedCards} 
+        <>
+            {p1DLose && <div className='show-win-lose'>{p1DLose}</div>}
+            {p1SLose && <div className='show-win-lose'>{p1SLose}</div>}
+            {p2DLose && <div className='show-win-lose'>{p2DLose}</div>}
+            {p2SLose && <div className='show-win-lose'>{p2SLose}</div>}
+
+            <div id='board'>
+                <SideBoard 
+                    boardId='left-board' 
+                    score={eScore} 
+                    deck={deck} 
+                    stack={myStack} 
                 />
-                <div id='center-center'>
-                    <div>
-                        <Card backImg={'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_1.png'} imgName={aECard1 === '' ? 'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_1.png' : aECard1} />
-                        <Card backImg={'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_2.png'} imgName={aECard2 === '' ? 'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_2.png' : aECard2} />
-                        <Card backImg={'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_3.png'} imgName={aECard3 === '' ? 'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_3.png' : aECard3} />
-                    </div>
-                    <div>
-                        {battle1 === '' && <span style={{opacity: '0'}}>nan</span>}
-                        {battle1 === 'win' && <span style={{color: 'rgb(0, 187, 255)'}}>Win</span>}
-                        {battle1 === 'lose' && <span style={{color: 'red'}}>Lose</span>}
-                        {battle1 === 'tie' && <span style={{color: 'yellow'}}>Tie</span>}
+                <div id='center-board'>
+                    <PlayerCardArea 
+                        centerTB='center-top' 
+                        eCard1={eCard1} eCard2={eCard2} eCard3={eCard3} 
+                        card1={card1} card2={card2} card3={card3} 
+                        isDisabled={isDisabled} 
+                        setPosition={setPosition}
+                        servedCards={servedCards}
+                        setServedCards={setServedCards} 
+                    />
+                    <div id='center-center'>
+                        <div>
+                            <Card backImg={'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_1.png'} imgName={aECard1 === '' ? 'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_1.png' : aECard1} />
+                            <Card backImg={'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_2.png'} imgName={aECard2 === '' ? 'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_2.png' : aECard2} />
+                            <Card backImg={'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_3.png'} imgName={aECard3 === '' ? 'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_3.png' : aECard3} />
+                        </div>
+                        <div>
+                            {battle1 === '' && <span style={{opacity: '0'}}>nan</span>}
+                            {battle1 === 'win' && <span style={{color: 'rgb(0, 187, 255)'}}>Win</span>}
+                            {battle1 === 'lose' && <span style={{color: 'red'}}>Lose</span>}
+                            {battle1 === 'tie' && <span style={{color: 'yellow'}}>Tie</span>}
 
-                        {battle2 === '' && <span style={{opacity: '0'}}>nan</span>}
-                        {battle2 === 'win' && <span style={{color: 'rgb(0, 187, 255)'}}>Win</span>}
-                        {battle2 === 'lose' && <span style={{color: 'red'}}>Lose</span>}
-                        {battle2 === 'tie' && <span style={{color: 'yellow'}}>Tie</span>}
+                            {battle2 === '' && <span style={{opacity: '0'}}>nan</span>}
+                            {battle2 === 'win' && <span style={{color: 'rgb(0, 187, 255)'}}>Win</span>}
+                            {battle2 === 'lose' && <span style={{color: 'red'}}>Lose</span>}
+                            {battle2 === 'tie' && <span style={{color: 'yellow'}}>Tie</span>}
 
-                        {battle3 === '' && <span style={{opacity: '0'}}>nan</span>}
-                        {battle3 === 'win' && <span style={{color: 'rgb(0, 187, 255)'}}>Win</span>}
-                        {battle3 === 'lose' && <span style={{color: 'red'}}>Lose</span>}
-                        {battle3 === 'tie' && <span style={{color: 'yellow'}}>Tie</span>}
+                            {battle3 === '' && <span style={{opacity: '0'}}>nan</span>}
+                            {battle3 === 'win' && <span style={{color: 'rgb(0, 187, 255)'}}>Win</span>}
+                            {battle3 === 'lose' && <span style={{color: 'red'}}>Lose</span>}
+                            {battle3 === 'tie' && <span style={{color: 'yellow'}}>Tie</span>}
 
+                        </div>
+                        <div>
+                            <Card backImg={'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_1.png'} fade={card1Fade} imgName={aCard1 === '' ? 'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_1.png' : aCard1} />
+                            <Card backImg={'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_2.png'} imgName={aCard2 === '' ? 'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_2.png' : aCard2} />
+                            <Card backImg={'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_3.png'} imgName={aCard3 === '' ? 'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_3.png' : aCard3} />
+                        </div>
                     </div>
-                    <div>
-                        <Card backImg={'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_1.png'} fade={card1Fade} imgName={aCard1 === '' ? 'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_1.png' : aCard1} />
-                        <Card backImg={'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_2.png'} imgName={aCard2 === '' ? 'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_2.png' : aCard2} />
-                        <Card backImg={'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_3.png'} imgName={aCard3 === '' ? 'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b_3.png' : aCard3} />
-                    </div>
+                    <PlayerCardArea centerTB='center-bottom' 
+                        eCard1={eCard1} eCard2={eCard2} eCard3={eCard3} 
+                        card1={card1} card1Fade={card1Fade} card2={card2} card3={card3} 
+                        isDisabled={isDisabled} 
+                        setPosition={setPosition}
+                        servedCards={servedCards}
+                        setServedCards={setServedCards} 
+                    />
                 </div>
-                <PlayerCardArea centerTB='center-bottom' 
-                    eCard1={eCard1} eCard2={eCard2} eCard3={eCard3} 
-                    card1={card1} card1Fade={card1Fade} card2={card2} card3={card3} 
-                    isDisabled={isDisabled} 
-                    setPosition={setPosition}
-                    servedCards={servedCards}
-                    setServedCards={setServedCards} 
+                <SideBoard 
+                    boardId='right-board' 
+                    score={score} 
+                    deck={deck} 
+                    stack={eStack} 
+                    clickedBatBtn={clickedBatBtn} 
+                    moves={moves} 
+                    sendMoves={sendMoves} 
+                    battleBtn={true} 
+                    setServedCards
                 />
             </div>
-            <SideBoard 
-                boardId='right-board' 
-                score={score} 
-                deck={deck} 
-                stack={eStack} 
-                clickedBatBtn={clickedBatBtn} 
-                moves={moves} 
-                sendMoves={sendMoves} 
-                battleBtn={true} 
-                setServedCards
-            />
-        </div>
+        </>
     );
 }
 

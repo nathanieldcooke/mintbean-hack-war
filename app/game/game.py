@@ -73,20 +73,3 @@ class Game:
 
         return winLose
 
-# game = Game()
-
-# card1 = game.player1.deck[0]
-# card2 = game.player1.deck[1]
-# card3 = game.player1.deck[2]
-
-# game.player1.curr_play = [card1, card2, card3]
-
-# card1 = game.player2.deck[0]
-# card2 = game.player2.deck[1]
-# card3 = game.player2.deck[2]
-
-# game.player2.curr_play = [card1, card2, card3]
-
-# print(game.game_loop())
-# print(game.playerDecks)
-# print(game.game_code)
