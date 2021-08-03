@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useParams } from 'react-router-dom';
 import { FadeContext } from './FadeContext.js';
 import { io } from 'socket.io-client';
 import Card from './Card.js'
@@ -8,29 +7,12 @@ import './GameBoard.css'
 import SideBoard from './SideBoard.js'
 import PlayerCardArea from './PlayerCardArea.js'
 
-// export const fadeObj = {
-//     boolean: true
-// }
-
-// outside of your component, initialize the socket variable
 let socket;
 
 const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
 
     const fadeContext = useContext(FadeContext)
-    // console.log("CONTEXT: ", `${fadeContext.fade.boolean}`)
-    // let obj = fadeContext.fade
-    // console.log(obj.boolean = true)
-    // console.log("CONTEXT: ", fadeContext.fade)
 
-    // console.log(fadeObj)
-    // fadeObj.boolean = false;
-    // console.log(fadeObj)
-
-
-
-    // game init code
-    // let { code, pNum } = useParams()
     const [servedCards, setServedCards] = useState(false)
     let [moves, setMoves] = useState([])
     let [gameState, setGameState] = useState({})
@@ -39,7 +21,6 @@ const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
     let [battle1, setBattle1] = useState('')
     let [battle2, setBattle2] = useState('')
     let [battle3, setBattle3] = useState('')
-    // console.log(code, pNum, activeGame)
 
     // cards being played Top and Bottom
     let [card1, setCard1] = useState('https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b.png')
@@ -70,7 +51,6 @@ const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
 
 
     useEffect(() => {
-        console.log(gameState)
         if (gameState[`player${pNum}`] && gameState[`player${pNum === '1' ? 2 : 1}`]) {
             gameStepper() // runs animated card sequence, base on latest play by players
         } else if (gameState[`player${pNum}`] && !moves.length) {
@@ -80,17 +60,14 @@ const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
     }, [gameState])
 
     useEffect(() => {
-        console.log(activeGame)
         if (activeGame) {
             // create websocket
             socket = io();
             // listen for chat events
             socket.on(`${code}-${pNum}`, (gameState) => {
-                // when we recieve a chat, add it into our messages array in state
+                // when we recieve a gameState, upate gameState(is a snap shot of game in backend)
                 setGameState(gameState)
-                // console.log(gameState)
             })
-            // console.log(moves)
             socket.emit("games", { pNum: pNum, 'game_id': code, moves, compPlayer: compPlayer })
             // when component unmounts, disconnect
             return (() => {
@@ -104,21 +81,18 @@ const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    // const lamma = true && true
-
     const gameStepper = async () => {
         setMoves([])
         clickedBtns.forEach(node => node.classList.remove('red'))
         setClickedBtns([])
 
-        await moveCardsToBattle() // this
-        await moveCardsToWinnerDeck() // this
+        await moveCardsToBattle()
+        await moveCardsToWinnerDeck() 
         await serveCards()
         setClickedBatBtn(false)
     }
 
     const serveCards = async () => {
-        // console.log('SSSSSSSSSSSSSSS')
         await sleep(2000)
 
         let playerState = gameState[`player${pNum}`]
@@ -129,7 +103,6 @@ const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
         let ePlayer = gameState[`player${pNum === '1' ? 2 : 1}`]
         setScore(playerState.score)
         setEScore(ePlayer ? ePlayer.score : eScore)
-        console.log(c1, c2, c3)
 
         fadeContext.fade.boolean = true
         fadeContext.fade.type = 'F'
@@ -153,7 +126,6 @@ const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
 
     const moveCardsToWinnerDeck = async () => {
         await sleep(2000)
-        // console.log('WWWWWWWWWWWWWWWWWWWWW')
         let playerHand = gameState[`player${pNum}`].curr_play
         let ePlayerHand = gameState[`player${pNum === '1' ? 2 : 1}`].curr_play
 
@@ -164,21 +136,15 @@ const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
         let winStack = null 
 
         if (countOf1 > countOf2) { // player1 wins battle
-            console.log('hello', pNum, countOf1)
             if (pNum === '1')  {
-                console.log('hello1111')
                 winStack = setMyStack
             } else {
-                console.log('hello2222')
                 winStack = setEStack
             }
         } else { // player2 wins battle
-            console.log('heeeee', pNum, countOf2)
             if (pNum === '2') {
-                console.log('heeOOO')
                 winStack = setMyStack
             } else {
-                console.log('heeEEE')
                 winStack = setEStack
             }
         }
@@ -227,14 +193,12 @@ const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
             let cIdx = playerHand.indexOf(card)
             
             await sleep(1000)
-            // fadeContext.fade.boolean = true
             fadeContext.fade.type = 'B'
             if (card === card1) setCard1('https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b.png');
             if (card === card2) setCard2('https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b.png');
             if (card === card3) setCard3('https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b.png');
 
             await sleep(1000)
-            // fadeContext.fade.boolean = true
             fadeContext.fade.type = 'F'
             if (cIdx === 0) aSetCard1(playerHand[cIdx]);
             if (cIdx === 1) aSetCard2(playerHand[cIdx]);
@@ -243,7 +207,6 @@ const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
 
 
         await sleep(1000)
-        // fadeContext.fade.boolean = true
         fadeContext.fade.type = 'B'
         setECard1('https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b.png')
         setECard2('https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b.png')
@@ -251,7 +214,6 @@ const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
 
         await sleep(1000)
 
-        // fadeContext.fade.boolean = true
         fadeContext.fade.type = 'F'
         aESetECard1('https://warbattleof3cards.s3.us-west-1.amazonaws.com/joker.png')
         aESetECard2('https://warbattleof3cards.s3.us-west-1.amazonaws.com/joker.png')
@@ -294,9 +256,7 @@ const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
 
     const sendMoves = () => {
         setServedCards(false)
-        // let moves = moves
         setClickedBatBtn(true)
-        // setMoves(moves)
 
         socket.emit("games", { pNum: pNum, 'game_id': code, moves, compPlayer})
     }
@@ -309,8 +269,6 @@ const GameBoard = ({code, pNum, activeGame, compPlayer}) => {
         dupMoves[mIdx] = card;
 
         setMoves(dupMoves)
-
-        console.log(moves)
     }
 
     const isDisabled = (idx, card) => {

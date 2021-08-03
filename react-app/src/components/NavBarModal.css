@@ -7,7 +7,6 @@
     background-color: chartreuse;
     opacity: .5;
     transform: translate(-50%, -50%);
-    /* font-size: 2em; */
     height: 3.5em;
     width: 3.5em;
 }
@@ -39,8 +38,6 @@ nav {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    /* padding: 2em; */
-    /* border-radius: 2em; */
     border: 2px solid black;
     opacity: 1;
     z-index: 5;
@@ -51,18 +48,13 @@ nav ul {
     list-style-type: none;
     display: flex;
     flex-direction: column;
-    /* width: 100vw; */
     justify-content: space-around;
 }
 
 
 nav ul li {
     border-bottom: 2px solid black;
-    /* font-size: 2em; */
     text-align: center;
-    /* padding-bottom: .5em;
-    padding-top: .5em; */
-    /* padding: .5em; */
     text-align: center;
     font-weight: bolder;
 }
@@ -72,11 +64,8 @@ nav button {
     width: 100%;
     padding: 1em;
     font-size: 1em;
-    /* height: 80%; */
     background-color: rgba(0, 0, 0, 0);
-    /* border: 3px solid black; */
     color:rgb(186, 186, 0);
-    /* box-sizing: border-box; */
     transition: .5s;
 }
 
@@ -87,18 +76,8 @@ nav button:hover {
     cursor: pointer;
 }
 
-/* a {
-    text-decoration: none;
-} */
-
-/* .nav-text {
-    color: white;
-} */
-
 .join-game input {
-    /* width: 4em; */
     margin-left: 1em;
-    /* height: 1em; */
     text-align: center;
 }
 
@@ -111,19 +90,13 @@ nav button:hover {
     height: 100vh;
     width: 100vw;
     z-index: 1;
-    /* opacity: .25; */
-    /* filter: blur(20px); */
     backdrop-filter: blur(8px);
-    /* background-color: white; */
-    /* z-index: 6; */
 }
 
 #invite-code {
     background-color: white;
-    /* height: 5em; */
     padding: .5em;
     font-size: 2em;
-    /* width: 6em */
 }
 
 #invite-div {
@@ -136,7 +109,6 @@ nav button:hover {
 }
 
 .invite-span input {
-    /* font-size: 1em; */
     text-align: center;
     border: none;
 }
@@ -148,13 +120,10 @@ nav button:hover {
     padding: .25em;
     border-radius: .25em;
     color: rgb(0, 57, 0);
-    /* font-size: .5em; */
-    /* height: 1em; */
 }
 
 
 /* credit w3school.com */
-
 .tooltip {
   position: relative;
   display: inline-block;

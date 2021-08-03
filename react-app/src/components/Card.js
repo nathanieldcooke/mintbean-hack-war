@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { FadeContext } from './FadeContext';
 import FadeIn from './FadeIn';
-import FadeOut from './FadeOut';
 
 const Card = ({backImg, imgName }) => {
 
@@ -10,9 +9,6 @@ const Card = ({backImg, imgName }) => {
     let fade = fadeContext.fade.boolean
     let type = fadeContext.fade.type
 
-    // let time = fade ? 2500 : 0;
-
-    // console.log('FADE:   ',fade, type)
 
     return (
         <div className='card'
@@ -41,12 +37,6 @@ const Card = ({backImg, imgName }) => {
                     src={`${imgName}`}
                     height='100%' />
             </FadeIn>
-            // <FadeOut key={`${imgName}-b`} duration={2500}>
-            // <img
-            //     alt={`${imgName}=${backImg}`}
-            //     src={`../../img/${imgName}.png`}
-            //     height='100%' />
-            // </FadeOut>
         }
         </div>
     )

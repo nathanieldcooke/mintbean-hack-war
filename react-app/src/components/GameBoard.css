@@ -19,7 +19,6 @@
 #center-board {
     width: 70%;
     height: 100%;
-    /* background-color: greenyellow; */
 }
 
 #right-board {
@@ -41,8 +40,6 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    /* padding: 1em; */
-    /* background-color: blue; */
     border-bottom: .75em solid rgb(1, 58, 1) 
 
 }
@@ -54,7 +51,6 @@
     align-items: center;
     height: 50%;
     width: 100%;
-    /* background-color: blue; */
 }
 
 #center-center span {
@@ -65,8 +61,6 @@
     display: flex;
     width: 100%;
     justify-content: space-around;
-    /* padding: 1em; */
-    /* color: rgb(0, 187, 255); */
 }
 
 #center-bottom {
@@ -75,8 +69,6 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    /* padding: 1em; */
-    /* background-color: blue; */
     border-top: .75em solid rgb(1, 58, 1);
 }
 
@@ -88,9 +80,6 @@
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center center;
-    /* background-color: black; */
-    /* background-color: blue; */
-    /* background-color: black; */
 }
 
 .buttons, .eButtons {
@@ -105,7 +94,6 @@
     border: none;
     background-color: rgb(0, 79, 0);
     color:rgb(158, 189, 0);
-    /* opacity: .5; */
 }
 
 .buttons button:hover {
@@ -135,7 +123,6 @@
 .active {
     opacity: 1;
     cursor: pointer;
-    /* background-color: black; */
 }
 
 .inactive {
@@ -146,11 +133,6 @@
 button.red {
     background-color: rgb(181, 0, 0);
 }
-
-/* .fade {
-    border: 20px solid black;
-    animation: fade 10s ease-out;
-} */
 
 .score {
     border: 5px solid rgb(15, 22, 14);

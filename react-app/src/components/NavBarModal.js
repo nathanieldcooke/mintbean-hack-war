@@ -1,9 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import { useSelector } from 'react-redux';
-// import { NavLink } from 'react-router-dom';
-// import LoginForm from './auth/LoginForm';
-// import LogoutButton from './auth/LogoutButton';
-// import SignUpForm from './auth/SignUpForm';
 import GameBoard from './GameBoard';
 import './NavBarModal.css';
 import Splash from './Splash';
@@ -13,13 +8,6 @@ Storage = window.localStorage
 // wallpaper credit: https://wall.alphacoders.com/big.php?i=619513
 
 const NavBarModal = () => {
-
-  
-  // if (!) {
-    //   Storage.setItem('visited', true)
-    // }
-    
-    // const user = useSelector(state => state.session.user)
     
     const [open, setOpen] = useState(true) // false
     const [splashOpen, setSplashOpen] = useState(false) // true
@@ -40,14 +28,10 @@ const NavBarModal = () => {
     }, [])
 
     
-    // buttons of modal menu
+  // buttons of modal menu
   const [homeBtn, setHomeBtn] = useState(true)
-  // const [loginBtn, setLoginBtn] = useState(true)
-  // const [sighnUpBtn, setSignUpBtn] = useState(true)
   const [newGameBtn, setnewGameBtn] = useState(true)
   const [joinGameBtn, setJoinGameBtn] = useState(true)
-  // const [loginForm, setLogInForm] = useState(false)
-  // const [signUpForm, setSignUpForm] = useState(false)
   const [closeBtn, setCloseBtn] = useState(false)
   const [inviteCode, setInviteCode] = useState(false)
 
@@ -59,26 +43,16 @@ const NavBarModal = () => {
           'Content-Type': 'application/json'
         }
       });
-      // await res.json()
-      // console.log(code)
       let data = await res.json()
-      // console.log(code)
       setCode(data['code'])
     }
     fetchCode()
   }, [])
-  // fetchCode()
-
-  console.log(code)
-  // console.log(newCode)
-
 
   // copyFunc credit: w3Schools.com
   function copyFunc(e) {
     /* Get the text field */
     let copyText = e.target.parentNode.parentNode.children[0].children[0]
-
-    console.log(copyText)
 
     /* Select the text field */
     copyText.select();
@@ -92,15 +66,12 @@ const NavBarModal = () => {
   }
 
   const startNewGameC = () => {
-    // let compCode = code
     setOpen(true)
     setCode(code)
     setPlayerNum(1)
     setActiveGame(true)
     setCloseBtn(true)
 
-    // setLoginBtn(false)
-    // setSignUpBtn(false)
     setnewGameBtn(false)
     setJoinGameBtn(false)
 
@@ -114,8 +85,6 @@ const NavBarModal = () => {
     setActiveGame(true)
     setCloseBtn(true)
 
-    // setLoginBtn(false)
-    // setSignUpBtn(false)
     setnewGameBtn(false)
     setJoinGameBtn(false)
 
@@ -130,38 +99,14 @@ const NavBarModal = () => {
     setActiveGame(true)
     setCloseBtn(true)
 
-    // setLoginBtn(false)
-    // setSignUpBtn(false)
     setnewGameBtn(false)
     setJoinGameBtn(false)
   }
 
-  // const loginFunc = () => {
-  //   // setLoginBtn(false)
-  //   setSignUpBtn(false)
-  //   setnewGameBtn(false)
-  //   setJoinGameBtn(false)
-  //   setLogInForm(true)
-  // }
-
-  // const signUpFunc = () => {
-  //   setLoginBtn(false)
-  //   setSignUpBtn(false)
-  //   setnewGameBtn(false)
-  //   setJoinGameBtn(false)
-  //   // setLogInForm(true)
-  //   setSignUpForm(true)
-  // }
 
   const homeFunc = () => {
     setSplashOpen(false)
     setOpen(true)
-    // setLoginBtn(true)
-    // setSignUpBtn(true)
-    // setnewGameBtn(true)
-    // setJoinGameBtn(true)
-    // setLogInForm(false)
-    // setSignUpForm(false)
   }
 
   const modalIcon = (
@@ -189,23 +134,6 @@ const NavBarModal = () => {
               Home
             </button>
           </li>}
-          {/* {user && <li id='logout-btn'>
-            <LogoutButton />
-          </li>} */}
-          {/* {loginBtn && !user && <li>
-            <button 
-             onClick={loginFunc}
-            >
-              Login
-            </button>
-          </li>} */}
-          {/* {sighnUpBtn && !user && <li>
-            <button 
-              onClick={signUpFunc}
-            >
-              Sign Up
-            </button>
-          </li>} */}
           {!activeGame && newGameBtn && <li>
             <button
               onClick={startNewGameC}
@@ -232,12 +160,6 @@ const NavBarModal = () => {
               placeholder='Invite Code'
             />
           </li>}
-          {/* {loginForm && <li>
-              <LoginForm/>
-            </li>}
-          {signUpForm && <li>
-            <SignUpForm />
-          </li>} */}
           {inviteCode &&
           <li id='invite-code'>
             <div>Invite Code:</div>
@@ -264,10 +186,8 @@ const NavBarModal = () => {
   return (
     <>
       {open ? modalIcon : modalMenu}
-      {/* {!open ?  : null} */}
 
       {splashOpen ? splashIcon : <Splash splashOpen={splashOpen} setSplashOpen={setSplashOpen} open={open} setOpen={setOpen} activeGame={activeGame} />}
-      {/* {!splashOpen ?  : null} */}
 
       < GameBoard code={code} pNum={`${playerNum}`} activeGame={activeGame} compPlayer={compPlayer}/>
     </>

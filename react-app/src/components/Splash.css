@@ -1,5 +1,4 @@
 #splash-div {
-    /* background-image: url('../../img/https://warbattleof3cards.s3.us-west-1.amazonaws.com/splash_wb.jpg'); */
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -37,7 +36,6 @@
     width: 90vw;
     height: 90vh;
     display: flex;
-    /* flex-direction: column; */
     justify-content: center;
     align-items: center;
     z-index: 2;
@@ -66,7 +64,6 @@
 
 #bat-span > span {
     line-height: 1;
-    /* color: yellow; */
     color: red;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
@@ -76,7 +73,6 @@
     font-size: 2em;
     font-weight: 800;
     color: rgb(223, 223, 0);
-    /* color: chartreuse; */
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
@@ -99,9 +95,7 @@
 }
 
 button#in-game-close {
-    /* border-radius: 50%; */
     background-color: red;
-    /* width: 2em; */
 }
 
 #div-splash-comp.rules {
@@ -134,7 +128,6 @@ button#in-game-close {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* margin: 2em 0; */
 }
 
 #about-me-text > span, #about-me-text > div {
@@ -149,7 +142,6 @@ button#in-game-close {
 
 #about-me-text span {
     display: block;
-    /* padding-bottom: .5em; */
 }
 
 #me-title {

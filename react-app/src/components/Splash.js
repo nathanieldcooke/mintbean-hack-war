@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Splash.css'
 
-const Splash = ({splashOpen, setSplashOpen, open, setOpen, activeGame}) => {
+const Splash = ({setSplashOpen, setOpen, activeGame}) => {
     const [splashSlide, setSplashSlide] = useState(true)
     const [rulesSlide, setRulesSlide] = useState(false)
     const [aboutMeSlide, setAboutMeSlide] = useState(false)
@@ -97,7 +97,6 @@ const Splash = ({splashOpen, setSplashOpen, open, setOpen, activeGame}) => {
 
     const aboutMeComp = (
         <div id={'me-comp'}>
-            {/* <div id='profile-img' style={{backgroundImage: `url('../../img/profile_img.jpg')`}}></div> */}
             <div>
 
                 <div id='pro-img'><img src='https://warbattleof3cards.s3.us-west-1.amazonaws.com/profile_img.jpg' /></div>

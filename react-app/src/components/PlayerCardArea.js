@@ -1,15 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Card from './Card';
-import FadeIn from './FadeIn';
 
-const PlayerCardArea = ({ centerTB, eCard1, eCard2, eCard3, card1, card1Fade, card2, card3, isDisabled, setPosition, setServedCards, servedCards }) => {
+const PlayerCardArea = ({ centerTB, eCard1, eCard2, eCard3, card1, card1Fade, card2, card3, isDisabled, setPosition, servedCards }) => {
 
-
-    // const servedCards = () => {
-    //     return card1 === 'https://warbattleofe3cards.s3.us-west-1.amazonaws.com/play_b.png' ||
-    //         card2 === 'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b.png' ||
-    //         card3 === 'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b.png'
-    // }
 
     return (
         <>
@@ -61,9 +54,7 @@ const PlayerCardArea = ({ centerTB, eCard1, eCard2, eCard3, card1, card1Fade, ca
                                 onClick={(e) => setPosition(e, 2, card1)}
                             >3</button>
                         </div>
-                        {/* <FadeIn> */}
                             <Card key={`${card1}`} backImg={'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b.png'} fade={card1Fade} imgName={card1 === '' ? 'https://warbattleof3cards.s3.us-west-1.amazonaws.com/play_b.png' : card1}/>
-                        {/* </FadeIn> */}
                     </div>
                     <div className='card-spot'>
                         <div className='buttons'>
