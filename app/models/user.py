@@ -1,9 +1,9 @@
 from datetime import date
-from .db import db
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin
+# from .db import db
+# from werkzeug.security import generate_password_hash, check_password_hash
+# from flask_login import UserMixin
 
-today = date.today()
+# today = date.today()
 
 # dd/mm/YY
 # d1 = today.strftime("%d/%m/%Y")
@@ -23,39 +23,39 @@ today = date.today()
 
 
 
-class User(db.Model, UserMixin):
-  __tablename__ = 'users'
+# class User(db.Model, UserMixin):
+#   __tablename__ = 'users'
 
-  id = db.Column(db.Integer, primary_key = True)
-  firstname = db.Column(db.String(50), nullable=False)
-  lastname = db.Column(db.String(50), nullable=False)
-  email = db.Column(db.String(255), nullable = False, unique = True)
-  hashed_password = db.Column(db.String(255), nullable = False)
-  avatar = db.Column(db.String(360))
-  bio = db.Column(db.Text)
-  created_at = db.Column(db.DateTime, nullable=False, default=today)
-  updated_at = db.Column(db.DateTime, nullable=False, default=today)
+#   id = db.Column(db.Integer, primary_key = True)
+#   firstname = db.Column(db.String(50), nullable=False)
+#   lastname = db.Column(db.String(50), nullable=False)
+#   email = db.Column(db.String(255), nullable = False, unique = True)
+#   hashed_password = db.Column(db.String(255), nullable = False)
+#   avatar = db.Column(db.String(360))
+#   bio = db.Column(db.Text)
+#   created_at = db.Column(db.DateTime, nullable=False, default=today)
+#   updated_at = db.Column(db.DateTime, nullable=False, default=today)
 
-  @property
-  def password(self):
-    return self.hashed_password
-
-
-  @password.setter
-  def password(self, password):
-    self.hashed_password = generate_password_hash(password)
+#   @property
+#   def password(self):
+#     return self.hashed_password
 
 
-  def check_password(self, password):
-    return check_password_hash(self.password, password)
+#   @password.setter
+#   def password(self, password):
+#     self.hashed_password = generate_password_hash(password)
 
 
-  def to_dict(self):
-    return {
-      "id": self.id,
-      "firstname": self.firstname,
-      "lastname": self.lastname,
-      "bio": self.bio,
-      "avatar": self.avatar,
-      "email": self.email
-    }
+#   def check_password(self, password):
+#     return check_password_hash(self.password, password)
+
+
+#   def to_dict(self):
+#     return {
+#       "id": self.id,
+#       "firstname": self.firstname,
+#       "lastname": self.lastname,
+#       "bio": self.bio,
+#       "avatar": self.avatar,
+#       "email": self.email
+#     }

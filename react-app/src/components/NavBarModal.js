@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
-import LoginForm from './auth/LoginForm';
-import LogoutButton from './auth/LogoutButton';
-import SignUpForm from './auth/SignUpForm';
+// import { useSelector } from 'react-redux';
+// import { NavLink } from 'react-router-dom';
+// import LoginForm from './auth/LoginForm';
+// import LogoutButton from './auth/LogoutButton';
+// import SignUpForm from './auth/SignUpForm';
 import GameBoard from './GameBoard';
 import './NavBarModal.css';
 import Splash from './Splash';
@@ -19,7 +19,7 @@ const NavBarModal = () => {
     //   Storage.setItem('visited', true)
     // }
     
-    const user = useSelector(state => state.session.user)
+    // const user = useSelector(state => state.session.user)
     
     const [open, setOpen] = useState(true) // false
     const [splashOpen, setSplashOpen] = useState(false) // true
@@ -189,9 +189,9 @@ const NavBarModal = () => {
               Home
             </button>
           </li>}
-          {user && <li id='logout-btn'>
+          {/* {user && <li id='logout-btn'>
             <LogoutButton />
-          </li>}
+          </li>} */}
           {/* {loginBtn && !user && <li>
             <button 
              onClick={loginFunc}
