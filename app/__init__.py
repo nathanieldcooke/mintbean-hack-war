@@ -15,7 +15,7 @@ firebaseDict = {
     "type": "service_account",
     "project_id": "my-project-1578346497301",
     "private_key_id": "afd3d2ee23383b38e246667e11a5765e27888d3d",
-    "private_key": Config.SECRET_KEY_FIREBASE.replace('\\n', '\n'),
+    "private_key": Config.SECRET_KEY_FIREBASE,
     "client_email": "firebase-adminsdk-ixaq7@my-project-1578346497301.iam.gserviceaccount.com",
     "client_id": "110055589170027281249",
     "auth_uri": "https://accounts.google.com/o/oauth2/auth",
