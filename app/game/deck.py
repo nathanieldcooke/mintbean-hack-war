@@ -68,11 +68,17 @@ deckDict = {
 }
 
 class Deck:
-    def __init__(self):
-        self.players = 2
-        self.deckDict = deckDict
-        self.deckList = self.build_deck()
-        self.playerDecks = self.divide_deck()
+    def __init__(self, deck_dict):
+        if deck_dict:
+            self.players = deck_dict['players']
+            self.deckDict = deck_dict['deckDict']
+            self.deckList = deck_dict['deckList']
+            self.playerDecks = deck_dict['playerDecks']
+        else:
+            self.players = 2
+            self.deckDict = deckDict
+            self.deckList = self.build_deck()
+            self.playerDecks = self.divide_deck()
     
     def build_deck(self):
 
@@ -100,6 +106,14 @@ class Deck:
             cardsGiven += 1
         
         return playerDecks
+
+    def to_dict(self):
+        return {
+            'players': self.players,
+            'deckDict': self.deckDict,
+            'deckList': self.deckList,
+            'playerDecks': self.playerDecks
+        }
 
             
 # newDeck = Deck(2)

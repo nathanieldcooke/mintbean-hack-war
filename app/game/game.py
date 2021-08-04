@@ -8,15 +8,23 @@ from app.game.player import Player
 
 class Game:
 
-    def __init__(self):
-        self.joined_game = 0
-        self.deck = Deck()
-        self.playerDecks = self.deck.playerDecks
-        self.deck_vals = self.deck.deckDict
-        self.game_code = self.generate_game_code()
+    def __init__(self, game_dict):
+        if game_dict:
+            self.deck = Deck(game_dict['deck'])
+            self.playerDecks = game_dict['playerDecks']
+            self.deck_vals = game_dict['deck_vals']
+            self.game_code = game_dict['game_code']
 
-        self.player1 = Player(self.playerDecks['player1'])
-        self.player2 = Player(self.playerDecks['player2'])
+            self.player1 = Player(False, game_dict['player1'])
+            self.player2 = Player(False, game_dict['player2'])
+        else:
+            self.deck = Deck(False)
+            self.playerDecks = self.deck.playerDecks
+            self.deck_vals = self.deck.deckDict
+            self.game_code = self.generate_game_code()
+
+            self.player1 = Player(self.playerDecks['player1'], False)
+            self.player2 = Player(self.playerDecks['player2'], False)            
 
 
     def generate_game_code(self):
@@ -73,3 +81,12 @@ class Game:
 
         return winLose
 
+    def to_dict(self):
+        return {
+            'deck': self.deck.to_dict(),
+            'playerDecks': self.playerDecks,
+            'deck_vals': self.deck_vals,
+            'game_code': self.game_code,
+            'player1': self.player1.to_dict(),
+            'player2': self.player2.to_dict(),
+        }

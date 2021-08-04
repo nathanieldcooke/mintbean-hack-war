@@ -1,11 +1,9 @@
 import os
 import random
+from app.game.game import Game
 # import datetime
 
-# from app.models import channel
 from flask_socketio import SocketIO, emit
-# from .models import db, Message
-from app.api.game_routes import currGames
 
 # configure cors_allowed_origins
 if os.environ.get('FLASK_ENV') == 'production':
@@ -23,8 +21,11 @@ socketio = SocketIO(cors_allowed_origins=origins)
 # handle games messages
 @socketio.on("games")
 def handle_games(data):
+    from app import db
 
-    game = currGames[data["game_id"]]
+    game_obj = db.collection('games').document(data['game_id']).get().to_dict()
+
+    game = Game(game_obj)
 
     if data['pNum'] == '1':
         game.player1.curr_play = data['moves']
@@ -51,5 +52,6 @@ def handle_games(data):
         if not data['compPlayer']:
             emit(f'{game.game_code}-2', gameState, broadcast=True)
 
+    db.collection('games').document(game.game_code).set(game.to_dict())
     return None
     

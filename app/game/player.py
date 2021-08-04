@@ -1,8 +1,13 @@
 class Player:
-    def __init__(self, deck):
-        self.score = 1000
-        self.deck = deck
-        self.curr_play = None
+    def __init__(self, deck, player_dict):
+        if player_dict:
+            self.score = player_dict['score']
+            self.deck = player_dict['deck']
+            self.curr_play = player_dict['curr_play']
+        else:
+            self.score = 1000
+            self.deck = deck
+            self.curr_play = None
 
     @classmethod
     def updateScores(cls, scores, player1, player2):

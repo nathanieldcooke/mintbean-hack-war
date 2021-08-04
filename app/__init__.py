@@ -4,6 +4,17 @@ from flask_cors import CORS
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from .socketIO import socketio
 
+# /////// FireBase DataBase
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
+
+cred = credentials.Certificate("app/serviceAccountKey.json")
+firebase_admin.initialize_app(cred)
+
+db=firestore.client()
+# ///////
+
 from .api.game_routes import game_routes
 
 from .config import Config
