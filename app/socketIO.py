@@ -53,5 +53,4 @@ def handle_games(data):
             emit(f'{game.game_code}-2', gameState, broadcast=True)
 
     db.collection('games').document(game.game_code).set(game.to_dict())
-    return None
     
